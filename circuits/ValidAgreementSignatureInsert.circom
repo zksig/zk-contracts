@@ -1,6 +1,6 @@
 pragma circom 2.0.0;
 
-include "./templates/ValidAgreementSignature.circom"
+include "./templates/ValidAgreementSignature.circom";
 include "../node_modules/circomlib/circuits/smt/smtprocessor.circom";
 
 template ValidAgreementSignatureInsert (nLevels) {
@@ -18,6 +18,7 @@ template ValidAgreementSignatureInsert (nLevels) {
    signal input R8y; // second 32 bytes of signature
 
    signal input oldRoot;
+   signal input oldKey;
    signal input newRoot;
    signal input siblings[nLevels];
 
@@ -33,11 +34,11 @@ template ValidAgreementSignatureInsert (nLevels) {
    sig.Ay <== Ay;
    sig.S <== S;
    sig.R8x <== R8x;
-   sig.R9y <== R8y;
+   sig.R8y <== R8y;
 
    component processor = SMTProcessor(nLevels);
    processor.oldRoot <== oldRoot;
-   processor.oldKey <== 0;
+   processor.oldKey <== oldKey;
    processor.oldValue <== 0;
    processor.isOld0 <== 0;
    processor.newKey <== S;
@@ -47,7 +48,9 @@ template ValidAgreementSignatureInsert (nLevels) {
 
    for(var i = 0; i < nLevels; i++) {
       processor.siblings[i] <== siblings[i];
-   }   
+   }
+
+   newRoot === processor.newRoot;
 }
 
 component main  {public [agreementId, oldRoot, newRoot]} = ValidAgreementSignatureInsert(5);

@@ -27,6 +27,7 @@ template ValidAgreementSignature() {
    msg.timestamp <== timestamp;
 
    component sig = EdDSAPoseidonVerifier();
+   sig.enabled <== 1;
    sig.Ax <== Ax;
    sig.Ay <== Ay;
    sig.S <== S;
@@ -34,5 +35,3 @@ template ValidAgreementSignature() {
    sig.R8y <== R8y;
    sig.M <== msg.M;
 }
-
-component main  {public [agreementId, S, R8x, R8y]} = ValidAgreementSignature();
