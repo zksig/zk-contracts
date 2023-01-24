@@ -9,3 +9,10 @@ typechain-types
 cache
 artifacts
 
+phase1/
+out/
+AgreementIdChecker/
+ValidAgreementPage/
+
+sig.js
+tree.js

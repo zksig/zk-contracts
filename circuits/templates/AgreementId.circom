@@ -1,5 +1,7 @@
 pragma circom 2.0.0;
 
+include "../../node_modules/circomlib/circuits/poseidon.circom";
+
 template AgreementId () {
    signal input title;
    signal input totalSigners;
@@ -19,5 +21,3 @@ template AgreementId () {
    
    hash <== id.out;
 }
-
-component main = AgreementId();

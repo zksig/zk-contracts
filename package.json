@@ -6,6 +6,8 @@
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",
     "@ethersproject/providers": "^5.4.7",
+    "@iden3/js-crypto": "^0.0.3",
+    "@iden3/js-merkletree": "^0.0.2",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.0",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
@@ -17,12 +19,17 @@
     "@types/mocha": ">=9.1.0",
     "@types/node": ">=12.0.0",
     "chai": "^4.2.0",
+    "circom_tester": "^0.0.19",
+    "circomlib": "^2.0.5",
+    "circomlibjs": "^0.1.7",
     "ethers": "^5.4.7",
     "hardhat": "^2.12.6",
     "hardhat-gas-reporter": "^1.0.8",
+    "multiformats": "^11.0.1",
     "prettier-plugin-solidity": "^1.1.1",
     "solidity-coverage": "^0.8.0",
     "ts-node": ">=8.0.0",
+    "tweetnacl": "^1.0.3",
     "typechain": "^8.1.0",
     "typescript": ">=4.5.0"
   }
