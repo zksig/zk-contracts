@@ -1,5 +1,5 @@
 Arguments: 
-  /home/ryan/.nvm/versions/node/v18.12.1/bin/node /home/ryan/.nvm/versions/node/v18.12.1/bin/yarn add -D @types/circom_tester
+  /home/ryan/.nvm/versions/node/v18.12.1/bin/node /home/ryan/.nvm/versions/node/v18.12.1/bin/yarn add -D @types/snarkjs
 
 PATH: 
   /home/ryan/.local/share/solana/install/active_release/bin:/home/ryan/.npm-global/bin:/home/ryan/.local/share/solana/install/active_release/bin:/home/ryan/.nvm/versions/node/v18.12.1/bin:/home/ryan/.npm-global/bin:/home/ryan/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ryan/.gem/ruby/2.2.0/bin:/home/ryan/bin:/home/ryan/.rvm/bin/:/home/ryan/go/bin:/usr/local/node/bin:/home/ryan/.rvm/bin:/home/ryan/.gem/ruby/2.2.0/bin:/home/ryan/bin:/home/ryan/.rvm/bin/:/home/ryan/go/bin:/usr/local/node/bin:/home/ryan/.rvm/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fcircom_tester: Not found
+  Error: https://registry.yarnpkg.com/@types%2fsnarkjs: Not found
       at params.callback [as _callback] (/home/ryan/.nvm/versions/node/v18.12.1/lib/node_modules/yarn/lib/cli.js:66145:18)
       at self.callback (/home/ryan/.nvm/versions/node/v18.12.1/lib/node_modules/yarn/lib/cli.js:140890:22)
       at Request.emit (node:events:513:28)
@@ -33,7 +33,7 @@ npm manifest:
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-      "test": "mocha test/**/*.ts"
+      "test": "mocha test/**/*.js --timeout 10000"
     },
     "devDependencies": {
       "@ethersproject/abi": "^5.4.7",
@@ -60,6 +60,7 @@ npm manifest:
       "mocha": "^10.2.0",
       "multiformats": "^11.0.1",
       "prettier-plugin-solidity": "^1.1.1",
+      "snarkjs": "^0.5.0",
       "solidity-coverage": "^0.8.0",
       "ts-node": ">=8.0.0",
       "tweetnacl": "^1.0.3",
@@ -4417,7 +4418,7 @@ Lockfile:
       astral-regex "^2.0.0"
       is-fullwidth-code-point "^3.0.0"
   
-  snarkjs@0.5.0:
+  snarkjs@0.5.0, snarkjs@^0.5.0:
     version "0.5.0"
     resolved "https://registry.yarnpkg.com/snarkjs/-/snarkjs-0.5.0.tgz#cf26bf1d3835eb16b4b330a438bad9824837d6b0"
     integrity sha512-KWz8mZ2Y+6wvn6GGkQo6/ZlKwETdAGohd40Lzpwp5TUZCn6N6O4Az1SuX1rw/qREGL6Im+ycb19suCFE8/xaKA==

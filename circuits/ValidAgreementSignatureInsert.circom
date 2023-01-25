@@ -20,6 +20,7 @@ template ValidAgreementSignatureInsert (nLevels) {
    signal input oldRoot;
    signal input oldKey;
    signal input newRoot;
+   signal input isOld0;
    signal input siblings[nLevels];
 
    component sig = ValidAgreementSignature();
@@ -40,7 +41,7 @@ template ValidAgreementSignatureInsert (nLevels) {
    processor.oldRoot <== oldRoot;
    processor.oldKey <== oldKey;
    processor.oldValue <== 0;
-   processor.isOld0 <== 0;
+   processor.isOld0 <== isOld0;
    processor.newKey <== S;
    processor.newValue <== 0;
    processor.fnc[0] <== 1;
