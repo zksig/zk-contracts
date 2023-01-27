@@ -1,13 +1,13 @@
 const { newMemEmptyTrie } = require("circomlibjs");
 const { wasm } = require("circom_tester");
 
-describe("ValidAgreementId circuit", () => {
+describe("ValidAgreementIdPart circuit", () => {
   let circuit;
   before(async () => {
-    circuit = await wasm("./circuits/ValidAgreementId.circom");
+    circuit = await wasm("./circuits/ValidAgreementIdPart.circom");
   });
 
-  it("passes if valid id", async () => {
+  it("passes if right title is in agreement id", async () => {
     const tree = await newMemEmptyTrie();
     await tree.insert(
       getKey("title"),
@@ -21,18 +21,9 @@ describe("ValidAgreementId circuit", () => {
 
     const witness = await circuit.calculateWitness({
       root: tree.F.toObject(tree.root),
-      title: `0x${Buffer.from("hello").toString("hex")}`,
-      titleSiblings: await getSiblings(tree, "title"),
-      totalSigners: "1",
-      totalSignersSiblings: await getSiblings(tree, "totalSigners"),
-      pdfCID: "12345",
-      pdfCIDSiblings: await getSiblings(tree, "pdfCID"),
-      pdfHash: "98765",
-      pdfHashSiblings: await getSiblings(tree, "pdfHash"),
-      totalPages: "5",
-      totalPagesSiblings: await getSiblings(tree, "totalPages"),
-      encryptionKey: "55555",
-      encryptionKeySiblings: await getSiblings(tree, "encryptionKey"),
+      key: getKey("title"),
+      value: `0x${Buffer.from("hello").toString("hex")}`,
+      siblings: await getSiblings(tree, "title"),
     });
 
     // TODO fix circom_tester library so we can check output

@@ -18,15 +18,20 @@ describe("ValidAgreementPage circuit", () => {
     );
     while (siblingHashes.length < 10) siblingHashes.push(0);
 
+    const agreementTree = await newMemEmptyTrie();
+    await agreementTree.insert(
+      `0x${Buffer.from("pdfHash").toString("hex")}`,
+      agreementTree.F.toObject(tree.root)
+    );
+    const pdfHashSiblings = (
+      await agreementTree.find(`0x${Buffer.from("pdfHash").toString("hex")}`)
+    ).siblings.map((s) => agreementTree.F.toObject(s));
+    while (pdfHashSiblings.length < 10) pdfHashSiblings.push(0);
+
     const witness = await circuit.calculateWitness({
-      title: "43434",
-      totalSigners: "10",
-      pdfCID: "12345",
+      pdfHashSiblings,
       pdfHash: tree.F.toObject(tree.root),
-      totalPages: "4",
-      encryptionKey: "12345",
-      agreementId:
-        "15672289171331961726174349807060979975311854093145864462589715964709036733829",
+      agreementId: agreementTree.F.toObject(agreementTree.root),
       siblings: siblingHashes,
       pageHash: 3,
     });
