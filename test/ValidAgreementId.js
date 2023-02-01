@@ -11,27 +11,31 @@ describe("ValidAgreementId circuit", () => {
     const tree = await newMemEmptyTrie();
     await tree.insert(
       getKey("title"),
-      `0x${Buffer.from("hello").toString("hex")}`
+      `0x${Buffer.from("o").toString("hex")}`
     );
-    await tree.insert(getKey("totalSigners"), "1");
-    await tree.insert(getKey("pdfCID"), "12345");
-    await tree.insert(getKey("pdfHash"), "98765");
-    await tree.insert(getKey("totalPages"), "5");
-    await tree.insert(getKey("encryptionKey"), "55555");
+    await tree.insert(getKey("totalSigners"), "2");
+    await tree.insert(getKey("pdfCID"), "");
+    await tree.insert(getKey("pdfHash"), "");
+    await tree.insert(getKey("totalPages"), "10");
+    await tree.insert(
+      getKey("encryptionKey"),
+      "0x50f160e83b4bbee7f35b3e589233d4b30e6832c635cb395473bde5887a82052f"
+    );
 
     const witness = await circuit.calculateWitness({
       root: tree.F.toObject(tree.root),
-      title: `0x${Buffer.from("hello").toString("hex")}`,
+      title: `0x${Buffer.from("o").toString("hex")}`,
       titleSiblings: await getSiblings(tree, "title"),
-      totalSigners: "1",
+      totalSigners: "2",
       totalSignersSiblings: await getSiblings(tree, "totalSigners"),
-      pdfCID: "12345",
+      pdfCID: "",
       pdfCIDSiblings: await getSiblings(tree, "pdfCID"),
-      pdfHash: "98765",
+      pdfHash: "",
       pdfHashSiblings: await getSiblings(tree, "pdfHash"),
-      totalPages: "5",
+      totalPages: "10",
       totalPagesSiblings: await getSiblings(tree, "totalPages"),
-      encryptionKey: "55555",
+      encryptionKey:
+        "0x50f160e83b4bbee7f35b3e589233d4b30e6832c635cb395473bde5887a82052f",
       encryptionKeySiblings: await getSiblings(tree, "encryptionKey"),
     });
 

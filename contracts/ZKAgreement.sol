@@ -23,6 +23,9 @@ contract ZKAgreement is ERC2771Context {
   function createAgreement(
     ZKAgreementTypes.CreateAgreementParams memory params
   ) public {
+    ZKAgreementTypes.Agreement storage a = agreements[params.agreementId];
+    require(a.validAgreementIdProof.length == 0, "Agreement exists");
+
     // verify agreement id
     uint256[] memory pubSignals = new uint256[](1);
     pubSignals[0] = params.agreementId;
@@ -30,7 +33,6 @@ contract ZKAgreement is ERC2771Context {
     require(valid, "Invalid agreement id");
 
     // update contract state
-    ZKAgreementTypes.Agreement storage a = agreements[params.agreementId];
     a.validAgreementIdProof = params.proof;
 
     // emit events

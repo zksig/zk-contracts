@@ -11,6 +11,8 @@ artifacts
 
 phase1/
 out/
+ValidAgreementId/
+ValidAgreementSignatureInsert/*
 AgreementIdChecker/
 ValidAgreementPage/
 
