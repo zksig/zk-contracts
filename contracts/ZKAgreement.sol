@@ -8,12 +8,16 @@ import "./verifiers/ValidAgreementId.sol";
 import "./verifiers/ValidAgreementSignatureInsert.sol";
 
 contract ZKAgreement is ERC2771Context {
-  event CreateAgreement(address indexed from, uint256 agreementId, bytes proof);
+  event CreateAgreement(
+    address indexed from,
+    uint256 agreementId,
+    ZKAgreementTypes.ZKProof proof
+  );
   event SignAgreement(
     uint256 indexed agreementId,
     uint256 oldRoot,
     uint256 newRoot,
-    bytes proof
+    ZKAgreementTypes.ZKProof proof
   );
 
   mapping(uint256 => ZKAgreementTypes.Agreement) agreements;
@@ -24,12 +28,15 @@ contract ZKAgreement is ERC2771Context {
     ZKAgreementTypes.CreateAgreementParams memory params
   ) public {
     ZKAgreementTypes.Agreement storage a = agreements[params.agreementId];
-    require(a.validAgreementIdProof.length == 0, "Agreement exists");
+    require(a.validAgreementIdProof.a[0] == 0, "Agreement exists");
 
     // verify agreement id
-    uint256[] memory pubSignals = new uint256[](1);
-    pubSignals[0] = params.agreementId;
-    bool valid = ValidAgreementId.verifyProof(params.proof, pubSignals);
+    bool valid = ValidAgreementId.verifyProof(
+      params.proof.a,
+      params.proof.b,
+      params.proof.c,
+      [params.agreementId]
+    );
     require(valid, "Invalid agreement id");
 
     // update contract state
@@ -45,14 +52,11 @@ contract ZKAgreement is ERC2771Context {
     ZKAgreementTypes.Agreement storage a = agreements[params.agreementId];
 
     // verify signature insert
-    uint256[] memory pubSignals = new uint256[](3);
-    pubSignals[0] = params.agreementId;
-    pubSignals[1] = a.signaturesRoot;
-    pubSignals[2] = params.root;
-
     bool valid = ValidAgreementSignatureInsert.verifyProof(
-      params.proof,
-      pubSignals
+      params.proof.a,
+      params.proof.b,
+      params.proof.c,
+      [params.agreementId, a.signaturesRoot, params.root]
     );
     require(valid, "Invalid signature insert");
 
