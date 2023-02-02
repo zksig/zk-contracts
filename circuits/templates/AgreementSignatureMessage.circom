@@ -7,7 +7,7 @@ template AgreementSignatureMessage() {
   signal input email;
   signal input identifier;
   signal input agreementId;
-  signal input agreementPDF;
+  signal input pdfHash;
   signal input ipAddress;
   signal input timestamp;
   signal output M;
@@ -17,7 +17,7 @@ template AgreementSignatureMessage() {
   msg.inputs[1] <== email;
   msg.inputs[2] <== identifier;
   msg.inputs[3] <== agreementId;
-  msg.inputs[4] <== agreementPDF;
+  msg.inputs[4] <== pdfHash;
   msg.inputs[5] <== ipAddress;
   msg.inputs[6] <== timestamp;
 

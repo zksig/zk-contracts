@@ -8,7 +8,7 @@ template ValidAgreementSignature() {
    signal input email;
    signal input identifier;
    signal input agreementId;
-   signal input agreementPDF;
+   signal input pdfHash;
    signal input ipAddress;
    signal input timestamp;
    signal input Ax; // first 32 bytes of public key
@@ -22,7 +22,7 @@ template ValidAgreementSignature() {
    msg.email <== email;
    msg.identifier <== identifier;
    msg.agreementId <== agreementId;
-   msg.agreementPDF <== agreementPDF;
+   msg.pdfHash <== pdfHash;
    msg.ipAddress <== ipAddress;
    msg.timestamp <== timestamp;
 

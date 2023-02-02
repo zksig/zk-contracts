@@ -8,7 +8,7 @@ template ValidAgreementSignatureInsert (nLevels) {
    signal input email;
    signal input identifier;
    signal input agreementId;
-   signal input agreementPDF;
+   signal input pdfHash;
    signal input ipAddress;
    signal input timestamp;
    signal input Ax; // first 32 bytes of public key
@@ -28,7 +28,7 @@ template ValidAgreementSignatureInsert (nLevels) {
    sig.email <== email;
    sig.identifier <== identifier;
    sig.agreementId <== agreementId;
-   sig.agreementPDF <== agreementPDF;
+   sig.pdfHash <== pdfHash;
    sig.ipAddress <== ipAddress;
    sig.timestamp <== timestamp;
    sig.Ax <== Ax;
