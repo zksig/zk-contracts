@@ -8,10 +8,16 @@ library ZKDocumentTypes {
     uint[2] c;
   }
 
+  struct DigitalSignature {
+    uint256 R8x;
+    uint256 R8y;
+    uint256 S;
+  }
+
   struct Document {
-    uint256 verifiersRoot;
+    uint256 participantsRoot;
     ZKProof validDocumentIdProof;
-    ZKProof validVerifiersProof;
+    ZKProof validParticipantsProof;
   }
 
   struct CreateDocumentParams {
@@ -19,8 +25,9 @@ library ZKDocumentTypes {
     ZKProof proof;
   }
 
-  struct VerifyDocumentParams {
+  struct AddDocumentParticipantParams {
     uint256 documentId;
+    DigitalSignature verifiedParticipant;
     uint256 root;
     ZKProof proof;
   }

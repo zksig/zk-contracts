@@ -15,17 +15,16 @@ describe("ZKDocument", () => {
     const validDocumentId = await validDocumentIdFactory.deploy();
     await validDocumentId.deployed();
 
-    const validDocumentVerifierInsertFactory = await ethers.getContractFactory(
-      "ValidDocumentVerifierInsert"
-    );
-    const validDocumentVerifierInsert =
-      await validDocumentVerifierInsertFactory.deploy();
-    await validDocumentVerifierInsert.deployed();
+    const validDocumentParticipantInsertFactory =
+      await ethers.getContractFactory("ValidDocumentParticipantInsert");
+    const validDocumentParticipantInsert =
+      await validDocumentParticipantInsertFactory.deploy();
+    await validDocumentParticipantInsert.deployed();
 
     const zkDocumentFactory = await ethers.getContractFactory("ZKDocument", {
       libraries: {
         ValidDocumentId: validDocumentId.address,
-        ValidDocumentVerifierInsert: validDocumentVerifierInsert.address,
+        ValidDocumentParticipantInsert: validDocumentParticipantInsert.address,
       },
     });
     contract = await zkDocumentFactory.deploy(ethers.constants.AddressZero);
@@ -120,8 +119,13 @@ describe("ZKDocument", () => {
 
   it("verifies a document with valid verified participent", async () => {
     return expect(
-      contract.verifyDocument({
+      contract.addDocumentParticipant({
         documentId: "1234",
+        verifiedParticipant: {
+          R8x: "1234",
+          R8y: "4567",
+          S: "90898",
+        },
         root: "3285937326252959461671809330765769524277251882929110868042172136442348719329",
         proof: {
           a: [
@@ -144,13 +148,18 @@ describe("ZKDocument", () => {
           ],
         },
       })
-    ).to.emit(contract, "VerifyDocument");
+    ).to.emit(contract, "NewDocumentParticipant");
   });
 
   it("fails to verify an document with invalid verified participant insert", async () => {
     return expect(
-      contract.verifyDocument({
+      contract.addDocumentParticipant({
         documentId: "1234",
+        verifiedParticipant: {
+          R8x: "1234",
+          R8y: "4567",
+          S: "90898",
+        },
         root: "2285937326252959461671809330765769524277251882929110868042172136442348719329",
         proof: {
           a: [
@@ -173,6 +182,6 @@ describe("ZKDocument", () => {
           ],
         },
       })
-    ).to.rejectedWith("Invalid verifier insert");
+    ).to.rejectedWith("Invalid participant insert");
   });
 });

@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/metatx/ERC2771Context.sol";
 import "@openzeppelin/contracts/metatx/MinimalForwarder.sol";
 import "./types/ZKDocumentTypes.sol";
 import "./verifiers/ValidDocumentId.sol";
-import "./verifiers/ValidDocumentVerifierInsert.sol";
+import "./verifiers/ValidDocumentParticipantInsert.sol";
 
 contract ZKDocument is ERC2771Context {
   event CreateDocument(
@@ -13,8 +13,9 @@ contract ZKDocument is ERC2771Context {
     uint256 documentId,
     ZKDocumentTypes.ZKProof proof
   );
-  event VerifyDocument(
+  event NewDocumentParticipant(
     uint256 indexed documentId,
+    ZKDocumentTypes.DigitalSignature verifiedParticipant,
     uint256 oldRoot,
     uint256 newRoot,
     ZKDocumentTypes.ZKProof proof
@@ -48,33 +49,34 @@ contract ZKDocument is ERC2771Context {
     // TODO contract hooks
   }
 
-  function verifyDocument(
-    ZKDocumentTypes.VerifyDocumentParams memory params
+  function addDocumentParticipant(
+    ZKDocumentTypes.AddDocumentParticipantParams memory params
   ) public {
     ZKDocumentTypes.Document storage doc = documents[params.documentId];
 
     // verify signature insert
-    bool valid = ValidDocumentVerifierInsert.verifyProof(
+    bool valid = ValidDocumentParticipantInsert.verifyProof(
       params.proof.a,
       params.proof.b,
       params.proof.c,
-      [params.documentId, doc.verifiersRoot, params.root]
+      [params.documentId, doc.participantsRoot, params.root]
     );
-    require(valid, "Invalid verifier insert");
+    require(valid, "Invalid participant insert");
 
     // TODO verify share
 
     // emit events
-    emit VerifyDocument(
+    emit NewDocumentParticipant(
       params.documentId,
-      doc.verifiersRoot,
+      params.verifiedParticipant,
+      doc.participantsRoot,
       params.root,
       params.proof
     );
 
     // update contract state
-    doc.verifiersRoot = params.root;
-    doc.validVerifiersProof = params.proof;
+    doc.participantsRoot = params.root;
+    doc.validParticipantsProof = params.proof;
 
     // TODO contract hooks
   }
