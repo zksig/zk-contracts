@@ -18,7 +18,7 @@ ValidAgreementPage/
 ValidParticipant/
 ValidVerifiedParticipant/
 ValidVerifiedParticipantData/
-ValidDocumnetVerifierInsert/
+ValidDocumnetVerifierInsert/*
 ValidDocumentId/
 
 sig.js
