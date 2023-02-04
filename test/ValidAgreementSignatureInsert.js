@@ -16,7 +16,7 @@ describe("ValidAgreementSignatureInsert circuit", () => {
     const identifier = stringToDecimal("manager", eddsa.F);
     const agreementId =
       "15672289171331961726174349807060979975311854093145864462589715964709036733829";
-    const agreementPDF =
+    const pdfHash =
       "13447170627293990149299743736637736044191141457400194191392195792195628196501";
     const ipAddress = stringToDecimal("55.55.55.55", eddsa.F);
     const timestamp = "1234565678";
@@ -26,7 +26,7 @@ describe("ValidAgreementSignatureInsert circuit", () => {
       email,
       identifier,
       agreementId,
-      agreementPDF,
+      pdfHash,
       ipAddress,
       timestamp,
     ]);
@@ -48,7 +48,7 @@ describe("ValidAgreementSignatureInsert circuit", () => {
       email,
       identifier,
       agreementId,
-      agreementPDF,
+      pdfHash,
       ipAddress,
       timestamp,
       Ax: eddsa.F.toObject(publicKey[0]),

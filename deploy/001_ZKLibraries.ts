@@ -31,6 +31,27 @@ const deployer: DeployFunction = async ({
   console.log(
     `ValidAgreementSignatureInsert library deployed to ${validAgreementSignatureInsert.address}`
   );
+
+  const validDocumentId = await deploy("ValidDocumentId", {
+    from: deployer,
+    args: [],
+    log: true,
+  });
+
+  console.log(`ValidDocumentId library deployed to ${validDocumentId.address}`);
+
+  const validDocumentVerifierInsert = await deploy(
+    "ValidDocumentVerifierInsert",
+    {
+      from: deployer,
+      args: [],
+      log: true,
+    }
+  );
+
+  console.log(
+    `ValidDocumentVerifierInsert library deployed to ${validDocumentVerifierInsert.address}`
+  );
 };
 
 deployer.tags = ["libraries"];

@@ -15,7 +15,7 @@ describe("ValidAgreementSignature circuit", () => {
     const email = stringToDecimal("test@test.com");
     const identifier = stringToDecimal("manager");
     const agreementId = "1234";
-    const agreementPDF = "9876";
+    const pdfHash = "9876";
     const ipAddress = stringToDecimal("55.55.55.55");
     const timestamp = "1234565678";
 
@@ -24,7 +24,7 @@ describe("ValidAgreementSignature circuit", () => {
       email,
       identifier,
       agreementId,
-      agreementPDF,
+      pdfHash,
       ipAddress,
       timestamp,
     ]);
@@ -38,7 +38,7 @@ describe("ValidAgreementSignature circuit", () => {
       email,
       identifier,
       agreementId,
-      agreementPDF,
+      pdfHash,
       ipAddress,
       timestamp,
       Ax: eddsa.F.toObject(publicKey[0]),

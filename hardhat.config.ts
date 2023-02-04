@@ -24,6 +24,12 @@ const config: HardhatUserConfig = {
     validAgreementSignatureInsert: {
       mumbai: "0x1732cf384eF96bEc9a61bd6B854F84e5eF9351cf",
     },
+    validDocumentId: {
+      mumbai: "0x3ACb9Df161E9000Df461f262065FD4dF702CFcab",
+    },
+    validDocumentVerifierInsert: {
+      mumbai: "0x271FfE9b0c73C06b87705410e5209E431d16393D",
+    },
   },
 };
 
