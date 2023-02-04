@@ -1,10 +1,10 @@
 const { wasm } = require("circom_tester");
-const { buildEddsa, buildPoseidon, newMemEmptyTrie } = require("circomlibjs");
+const { buildEddsa, newMemEmptyTrie } = require("circomlibjs");
 
-describe("ValidDocumentVerifierInsert circuit", () => {
+describe("ValidDocumentParticipantInsert circuit", () => {
   let circuit;
   before(async () => {
-    circuit = await wasm("./circuits/ValidDocumentVerifierInsert.circom");
+    circuit = await wasm("./circuits/ValidDocumentParticipantInsert.circom");
   });
 
   it("passes if valid signature insert", async () => {
@@ -37,7 +37,7 @@ describe("ValidDocumentVerifierInsert circuit", () => {
     );
     const siblingHashes = siblings.map((s) => tree.F.toObject(s));
     while (siblingHashes.length < 5) siblingHashes.push(0);
-
+    
     const witness = await circuit.calculateWitness({
       root: participantTree.F.toObject(participantTree.root),
       ...input,

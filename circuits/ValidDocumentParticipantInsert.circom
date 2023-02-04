@@ -3,7 +3,7 @@ pragma circom 2.0.0;
 include "./templates/VerifiedParticipant.circom";
 include "../node_modules/circomlib/circuits/smt/smtprocessor.circom";
 
-template ValidDocumentVerifierInsert (nLevels) {
+template ValidDocumentParticipantInsert (nLevels) {
    signal input root;
 
    signal input documentId;
@@ -88,4 +88,4 @@ template ValidDocumentVerifierInsert (nLevels) {
    newRoot === processor.newRoot;
 }
 
-component main  {public [documentId, oldRoot, newRoot]} = ValidDocumentVerifierInsert(5);
+component main  {public [documentId, oldRoot, newRoot]} = ValidDocumentParticipantInsert(5);

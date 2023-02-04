@@ -13,7 +13,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.9;
 
-library ValidDocumentVerifierInsertPairing {
+library ValidDocumentParticipantInsertPairing {
   struct G1Point {
     uint X;
     uint Y;
@@ -212,28 +212,28 @@ library ValidDocumentVerifierInsertPairing {
   }
 }
 
-library ValidDocumentVerifierInsert {
-  using ValidDocumentVerifierInsertPairing for *;
+library ValidDocumentParticipantInsert {
+  using ValidDocumentParticipantInsertPairing for *;
   struct VerifyingKey {
-    ValidDocumentVerifierInsertPairing.G1Point alfa1;
-    ValidDocumentVerifierInsertPairing.G2Point beta2;
-    ValidDocumentVerifierInsertPairing.G2Point gamma2;
-    ValidDocumentVerifierInsertPairing.G2Point delta2;
-    ValidDocumentVerifierInsertPairing.G1Point[] IC;
+    ValidDocumentParticipantInsertPairing.G1Point alfa1;
+    ValidDocumentParticipantInsertPairing.G2Point beta2;
+    ValidDocumentParticipantInsertPairing.G2Point gamma2;
+    ValidDocumentParticipantInsertPairing.G2Point delta2;
+    ValidDocumentParticipantInsertPairing.G1Point[] IC;
   }
   struct Proof {
-    ValidDocumentVerifierInsertPairing.G1Point A;
-    ValidDocumentVerifierInsertPairing.G2Point B;
-    ValidDocumentVerifierInsertPairing.G1Point C;
+    ValidDocumentParticipantInsertPairing.G1Point A;
+    ValidDocumentParticipantInsertPairing.G2Point B;
+    ValidDocumentParticipantInsertPairing.G1Point C;
   }
 
   function verifyingKey() internal pure returns (VerifyingKey memory vk) {
-    vk.alfa1 = ValidDocumentVerifierInsertPairing.G1Point(
+    vk.alfa1 = ValidDocumentParticipantInsertPairing.G1Point(
       1423427196573326869960381667785122074357921755684386940651843063386195096976,
       8023961015251680984904169932113418146783590031556471530623177414331800090437
     );
 
-    vk.beta2 = ValidDocumentVerifierInsertPairing.G2Point(
+    vk.beta2 = ValidDocumentParticipantInsertPairing.G2Point(
       [
         14981788778016161064675824813766262164386590279136355427549180094813413442058,
         15280203404894510920756392128045715359164951458648562381898759371631084950081
@@ -243,7 +243,7 @@ library ValidDocumentVerifierInsert {
         17421767135883714886528432224440823873509790917646536951997623325206225910141
       ]
     );
-    vk.gamma2 = ValidDocumentVerifierInsertPairing.G2Point(
+    vk.gamma2 = ValidDocumentParticipantInsertPairing.G2Point(
       [
         11559732032986387107991004021392285783925812861821192530917403151452391805634,
         10857046999023057135944570762232829481370756359578518086990519993285655852781
@@ -253,7 +253,7 @@ library ValidDocumentVerifierInsert {
         8495653923123431417604973247489272438418190587263600148770280649306958101930
       ]
     );
-    vk.delta2 = ValidDocumentVerifierInsertPairing.G2Point(
+    vk.delta2 = ValidDocumentParticipantInsertPairing.G2Point(
       [
         11559732032986387107991004021392285783925812861821192530917403151452391805634,
         10857046999023057135944570762232829481370756359578518086990519993285655852781
@@ -263,24 +263,24 @@ library ValidDocumentVerifierInsert {
         8495653923123431417604973247489272438418190587263600148770280649306958101930
       ]
     );
-    vk.IC = new ValidDocumentVerifierInsertPairing.G1Point[](4);
+    vk.IC = new ValidDocumentParticipantInsertPairing.G1Point[](4);
 
-    vk.IC[0] = ValidDocumentVerifierInsertPairing.G1Point(
+    vk.IC[0] = ValidDocumentParticipantInsertPairing.G1Point(
       1223039007947348516624637226554428700855868625349464473887735976921303692306,
       16042280749127851176927217134429858092766832354602665798637680496175337997576
     );
 
-    vk.IC[1] = ValidDocumentVerifierInsertPairing.G1Point(
+    vk.IC[1] = ValidDocumentParticipantInsertPairing.G1Point(
       1478967865786490990557269303790080914421319199950382686733972396537109829805,
       13140542242516600890232486863887593307860249363178928135211760046991647175074
     );
 
-    vk.IC[2] = ValidDocumentVerifierInsertPairing.G1Point(
+    vk.IC[2] = ValidDocumentParticipantInsertPairing.G1Point(
       18816537360317379347694615301358560524907196538866372223944817779366192857870,
       11359594706987708286283322181979652398185967699941291663371994992271169957961
     );
 
-    vk.IC[3] = ValidDocumentVerifierInsertPairing.G1Point(
+    vk.IC[3] = ValidDocumentParticipantInsertPairing.G1Point(
       10423604356941055853353996734397535267902352736788890462685249879520019484641,
       1050797281564968091514352855695505654384932646306697151066917812889410353817
     );
@@ -294,19 +294,19 @@ library ValidDocumentVerifierInsert {
     VerifyingKey memory vk = verifyingKey();
     require(input.length + 1 == vk.IC.length, "verifier-bad-input");
     // Compute the linear combination vk_x
-    ValidDocumentVerifierInsertPairing.G1Point
-      memory vk_x = ValidDocumentVerifierInsertPairing.G1Point(0, 0);
+    ValidDocumentParticipantInsertPairing.G1Point
+      memory vk_x = ValidDocumentParticipantInsertPairing.G1Point(0, 0);
     for (uint i = 0; i < input.length; i++) {
       require(input[i] < snark_scalar_field, "verifier-gte-snark-scalar-field");
-      vk_x = ValidDocumentVerifierInsertPairing.addition(
+      vk_x = ValidDocumentParticipantInsertPairing.addition(
         vk_x,
-        ValidDocumentVerifierInsertPairing.scalar_mul(vk.IC[i + 1], input[i])
+        ValidDocumentParticipantInsertPairing.scalar_mul(vk.IC[i + 1], input[i])
       );
     }
-    vk_x = ValidDocumentVerifierInsertPairing.addition(vk_x, vk.IC[0]);
+    vk_x = ValidDocumentParticipantInsertPairing.addition(vk_x, vk.IC[0]);
     if (
-      !ValidDocumentVerifierInsertPairing.pairingProd4(
-        ValidDocumentVerifierInsertPairing.negate(proof.A),
+      !ValidDocumentParticipantInsertPairing.pairingProd4(
+        ValidDocumentParticipantInsertPairing.negate(proof.A),
         proof.B,
         vk.alfa1,
         vk.beta2,
@@ -327,12 +327,12 @@ library ValidDocumentVerifierInsert {
     uint[3] memory input
   ) public view returns (bool r) {
     Proof memory proof;
-    proof.A = ValidDocumentVerifierInsertPairing.G1Point(a[0], a[1]);
-    proof.B = ValidDocumentVerifierInsertPairing.G2Point(
+    proof.A = ValidDocumentParticipantInsertPairing.G1Point(a[0], a[1]);
+    proof.B = ValidDocumentParticipantInsertPairing.G2Point(
       [b[0][0], b[0][1]],
       [b[1][0], b[1][1]]
     );
-    proof.C = ValidDocumentVerifierInsertPairing.G1Point(c[0], c[1]);
+    proof.C = ValidDocumentParticipantInsertPairing.G1Point(c[0], c[1]);
     uint[] memory inputValues = new uint[](input.length);
     for (uint i = 0; i < input.length; i++) {
       inputValues[i] = input[i];
