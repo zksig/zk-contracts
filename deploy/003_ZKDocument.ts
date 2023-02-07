@@ -15,7 +15,7 @@ const deployer: DeployFunction = async ({
     args: [forwarder],
     libraries: {
       ValidDocumentId: validDocumentId,
-      ValidDocumentVerifierInsert: validDocumentVerifierInsert,
+      ValidDocumentParticipantInsert: validDocumentVerifierInsert,
     },
     log: true,
     proxy: true,

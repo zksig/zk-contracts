@@ -41,7 +41,7 @@ const deployer: DeployFunction = async ({
   console.log(`ValidDocumentId library deployed to ${validDocumentId.address}`);
 
   const validDocumentVerifierInsert = await deploy(
-    "ValidDocumentVerifierInsert",
+    "ValidDocumentParticipantInsert",
     {
       from: deployer,
       args: [],
