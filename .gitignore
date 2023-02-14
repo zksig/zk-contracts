@@ -20,6 +20,10 @@ ValidVerifiedParticipant/
 ValidVerifiedParticipantData/
 ValidDocumnetVerifierInsert/*
 ValidDocumentId/
+ValidDocumentIdPart/
+ValidDocumentPage/*
+ValidDocumentParticipantInsert/*
+ValidDocumentParticipantInsertA/*
 
 sig.js
 tree.js

@@ -21,20 +21,39 @@ describe("ValidVerifiedParticipantData circuit", () => {
       verificationMethod: getKey("email"),
       verificationTimestamp: "1234567890",
     };
-    const tree = await newMemEmptyTrie();
+    const participantTree = await newMemEmptyTrie();
     for (const [i, value] of Object.values(input).entries()) {
-      await tree.insert(i, value);
+      await participantTree.insert(i, value);
     }
 
     const privateKey = "PRIVATE_KEY";
     const publicKey = eddsa.prv2pub(privateKey);
-    const sig = eddsa.signPoseidon(privateKey, tree.root);
+    const sig = eddsa.signPoseidon(privateKey, participantTree.root);
+
+    const documentParticipantsTree = await newMemEmptyTrie();
+    await documentParticipantsTree.insert(sig.S, 0);
+    for (let i = 0; i < 30; i++) {
+      await documentParticipantsTree.insert(
+        `22406528692252135119456532763175948575940741210963338630389976236458137077${i
+          .toString()
+          .padStart(2, "0")}`,
+        0
+      );
+    }
 
     const witness = await circuit.calculateWitness({
-      root: tree.F.toObject(tree.root),
+      participantsRoot: documentParticipantsTree.F.toObject(
+        documentParticipantsTree.root
+      ),
+      participantSiblings: await getSiblings(
+        documentParticipantsTree,
+        sig.S,
+        20
+      ),
+      participantId: participantTree.F.toObject(participantTree.root),
       key: 5,
       value: getKey("test@test.com"),
-      siblings: await getSiblings(tree, 5),
+      siblings: await getSiblings(participantTree, 5),
       Ax: eddsa.F.toObject(publicKey[0]),
       Ay: eddsa.F.toObject(publicKey[1]),
       S: sig.S,
@@ -50,11 +69,11 @@ function getKey(key) {
   return `0x${Buffer.from(key).toString("hex")}`;
 }
 
-async function getSiblings(tree, key) {
+async function getSiblings(tree, key, total = 5) {
   const siblings = (await tree.find(key)).siblings.map((s) =>
     tree.F.toObject(s)
   );
-  while (siblings.length < 5) siblings.push(0);
+  while (siblings.length < total) siblings.push(0);
 
   return siblings;
 }

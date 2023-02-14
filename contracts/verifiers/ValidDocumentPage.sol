@@ -13,7 +13,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.9;
 
-library ValidAgreementIdPairing {
+library ValidDocumentPagePairing {
   struct G1Point {
     uint X;
     uint Y;
@@ -212,38 +212,38 @@ library ValidAgreementIdPairing {
   }
 }
 
-library ValidAgreementId {
-  using ValidAgreementIdPairing for *;
+library ValidDocumentPage {
+  using ValidDocumentPagePairing for *;
   struct VerifyingKey {
-    ValidAgreementIdPairing.G1Point alfa1;
-    ValidAgreementIdPairing.G2Point beta2;
-    ValidAgreementIdPairing.G2Point gamma2;
-    ValidAgreementIdPairing.G2Point delta2;
-    ValidAgreementIdPairing.G1Point[] IC;
+    ValidDocumentPagePairing.G1Point alfa1;
+    ValidDocumentPagePairing.G2Point beta2;
+    ValidDocumentPagePairing.G2Point gamma2;
+    ValidDocumentPagePairing.G2Point delta2;
+    ValidDocumentPagePairing.G1Point[] IC;
   }
   struct Proof {
-    ValidAgreementIdPairing.G1Point A;
-    ValidAgreementIdPairing.G2Point B;
-    ValidAgreementIdPairing.G1Point C;
+    ValidDocumentPagePairing.G1Point A;
+    ValidDocumentPagePairing.G2Point B;
+    ValidDocumentPagePairing.G1Point C;
   }
 
   function verifyingKey() internal pure returns (VerifyingKey memory vk) {
-    vk.alfa1 = ValidAgreementIdPairing.G1Point(
-      8550897429030251190261827623484172800140256862864007211881543659324126829983,
-      14341864236720302587530069306523922198064751671275020255771953720463478106685
+    vk.alfa1 = ValidDocumentPagePairing.G1Point(
+      1423427196573326869960381667785122074357921755684386940651843063386195096976,
+      8023961015251680984904169932113418146783590031556471530623177414331800090437
     );
 
-    vk.beta2 = ValidAgreementIdPairing.G2Point(
+    vk.beta2 = ValidDocumentPagePairing.G2Point(
       [
-        17189074570463944214109217825652008472049436487783451508951356482274941250218,
-        2847140686752055174591359351231461191054232639231628516590630762453346235677
+        14981788778016161064675824813766262164386590279136355427549180094813413442058,
+        15280203404894510920756392128045715359164951458648562381898759371631084950081
       ],
       [
-        7737169959513197086901144380135725509006525804103483151973249681800978961460,
-        14705141847907149226245220778655351728647258747883962837330471210771647731042
+        127457706682557739436150116433930019448698159193059553212687691311716440831,
+        17421767135883714886528432224440823873509790917646536951997623325206225910141
       ]
     );
-    vk.gamma2 = ValidAgreementIdPairing.G2Point(
+    vk.gamma2 = ValidDocumentPagePairing.G2Point(
       [
         11559732032986387107991004021392285783925812861821192530917403151452391805634,
         10857046999023057135944570762232829481370756359578518086990519993285655852781
@@ -253,26 +253,31 @@ library ValidAgreementId {
         8495653923123431417604973247489272438418190587263600148770280649306958101930
       ]
     );
-    vk.delta2 = ValidAgreementIdPairing.G2Point(
+    vk.delta2 = ValidDocumentPagePairing.G2Point(
       [
-        14214584888137294195240809428880617823580937845109252728613777366728961472593,
-        13575521966214382178605728260223626134417212139677176226433874829032850518669
+        11559732032986387107991004021392285783925812861821192530917403151452391805634,
+        10857046999023057135944570762232829481370756359578518086990519993285655852781
       ],
       [
-        6716534437553998022856335211760385593023903745783185741668021741278411234102,
-        8267483181436246529595812365166193588128762019365188345366446359208020292729
+        4082367875863433681332203403145435568316851327593401208105741076214120093531,
+        8495653923123431417604973247489272438418190587263600148770280649306958101930
       ]
     );
-    vk.IC = new ValidAgreementIdPairing.G1Point[](2);
+    vk.IC = new ValidDocumentPagePairing.G1Point[](3);
 
-    vk.IC[0] = ValidAgreementIdPairing.G1Point(
-      11156433625630093970891142712526678211494010260044894825814446016809379049366,
-      9046903617200522703709601795658896646327798304983986150863700120076436585867
+    vk.IC[0] = ValidDocumentPagePairing.G1Point(
+      9137330337470688770292495546323000281746820378865938572487817397285893129737,
+      14463806133370300439542538854092492576385190348569605615739640387604832080700
     );
 
-    vk.IC[1] = ValidAgreementIdPairing.G1Point(
-      18528398443258857236604970434444896361894334775042824912258527348540926583216,
-      5218150308191231965474864846949823344848898828770979051977059296523816703747
+    vk.IC[1] = ValidDocumentPagePairing.G1Point(
+      8221709577712658693988649737782922893503776720947631474038820986548308735046,
+      14628210615963626019998475953976929359185030616105091344515820495766293027030
+    );
+
+    vk.IC[2] = ValidDocumentPagePairing.G1Point(
+      3371279618906517454941112604684892581546849933202581761078352594898265103632,
+      2343618977478350155184563626381380204486572085454952789459419544606515565347
     );
   }
 
@@ -284,19 +289,19 @@ library ValidAgreementId {
     VerifyingKey memory vk = verifyingKey();
     require(input.length + 1 == vk.IC.length, "verifier-bad-input");
     // Compute the linear combination vk_x
-    ValidAgreementIdPairing.G1Point memory vk_x = ValidAgreementIdPairing
+    ValidDocumentPagePairing.G1Point memory vk_x = ValidDocumentPagePairing
       .G1Point(0, 0);
     for (uint i = 0; i < input.length; i++) {
       require(input[i] < snark_scalar_field, "verifier-gte-snark-scalar-field");
-      vk_x = ValidAgreementIdPairing.addition(
+      vk_x = ValidDocumentPagePairing.addition(
         vk_x,
-        ValidAgreementIdPairing.scalar_mul(vk.IC[i + 1], input[i])
+        ValidDocumentPagePairing.scalar_mul(vk.IC[i + 1], input[i])
       );
     }
-    vk_x = ValidAgreementIdPairing.addition(vk_x, vk.IC[0]);
+    vk_x = ValidDocumentPagePairing.addition(vk_x, vk.IC[0]);
     if (
-      !ValidAgreementIdPairing.pairingProd4(
-        ValidAgreementIdPairing.negate(proof.A),
+      !ValidDocumentPagePairing.pairingProd4(
+        ValidDocumentPagePairing.negate(proof.A),
         proof.B,
         vk.alfa1,
         vk.beta2,
@@ -314,15 +319,15 @@ library ValidAgreementId {
     uint[2] memory a,
     uint[2][2] memory b,
     uint[2] memory c,
-    uint[1] memory input
+    uint[2] memory input
   ) public view returns (bool r) {
     Proof memory proof;
-    proof.A = ValidAgreementIdPairing.G1Point(a[0], a[1]);
-    proof.B = ValidAgreementIdPairing.G2Point(
+    proof.A = ValidDocumentPagePairing.G1Point(a[0], a[1]);
+    proof.B = ValidDocumentPagePairing.G2Point(
       [b[0][0], b[0][1]],
       [b[1][0], b[1][1]]
     );
-    proof.C = ValidAgreementIdPairing.G1Point(c[0], c[1]);
+    proof.C = ValidDocumentPagePairing.G1Point(c[0], c[1]);
     uint[] memory inputValues = new uint[](input.length);
     for (uint i = 0; i < input.length; i++) {
       inputValues[i] = input[i];

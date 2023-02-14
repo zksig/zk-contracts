@@ -13,7 +13,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.9;
 
-library ValidAgreementSignatureInsertPairing {
+library ValidDocumentIdPartPairing {
   struct G1Point {
     uint X;
     uint Y;
@@ -212,38 +212,38 @@ library ValidAgreementSignatureInsertPairing {
   }
 }
 
-library ValidAgreementSignatureInsert {
-  using ValidAgreementSignatureInsertPairing for *;
+library ValidDocumentIdPart {
+  using ValidDocumentIdPartPairing for *;
   struct VerifyingKey {
-    ValidAgreementSignatureInsertPairing.G1Point alfa1;
-    ValidAgreementSignatureInsertPairing.G2Point beta2;
-    ValidAgreementSignatureInsertPairing.G2Point gamma2;
-    ValidAgreementSignatureInsertPairing.G2Point delta2;
-    ValidAgreementSignatureInsertPairing.G1Point[] IC;
+    ValidDocumentIdPartPairing.G1Point alfa1;
+    ValidDocumentIdPartPairing.G2Point beta2;
+    ValidDocumentIdPartPairing.G2Point gamma2;
+    ValidDocumentIdPartPairing.G2Point delta2;
+    ValidDocumentIdPartPairing.G1Point[] IC;
   }
   struct Proof {
-    ValidAgreementSignatureInsertPairing.G1Point A;
-    ValidAgreementSignatureInsertPairing.G2Point B;
-    ValidAgreementSignatureInsertPairing.G1Point C;
+    ValidDocumentIdPartPairing.G1Point A;
+    ValidDocumentIdPartPairing.G2Point B;
+    ValidDocumentIdPartPairing.G1Point C;
   }
 
   function verifyingKey() internal pure returns (VerifyingKey memory vk) {
-    vk.alfa1 = ValidAgreementSignatureInsertPairing.G1Point(
-      8550897429030251190261827623484172800140256862864007211881543659324126829983,
-      14341864236720302587530069306523922198064751671275020255771953720463478106685
+    vk.alfa1 = ValidDocumentIdPartPairing.G1Point(
+      1423427196573326869960381667785122074357921755684386940651843063386195096976,
+      8023961015251680984904169932113418146783590031556471530623177414331800090437
     );
 
-    vk.beta2 = ValidAgreementSignatureInsertPairing.G2Point(
+    vk.beta2 = ValidDocumentIdPartPairing.G2Point(
       [
-        17189074570463944214109217825652008472049436487783451508951356482274941250218,
-        2847140686752055174591359351231461191054232639231628516590630762453346235677
+        14981788778016161064675824813766262164386590279136355427549180094813413442058,
+        15280203404894510920756392128045715359164951458648562381898759371631084950081
       ],
       [
-        7737169959513197086901144380135725509006525804103483151973249681800978961460,
-        14705141847907149226245220778655351728647258747883962837330471210771647731042
+        127457706682557739436150116433930019448698159193059553212687691311716440831,
+        17421767135883714886528432224440823873509790917646536951997623325206225910141
       ]
     );
-    vk.gamma2 = ValidAgreementSignatureInsertPairing.G2Point(
+    vk.gamma2 = ValidDocumentIdPartPairing.G2Point(
       [
         11559732032986387107991004021392285783925812861821192530917403151452391805634,
         10857046999023057135944570762232829481370756359578518086990519993285655852781
@@ -253,7 +253,7 @@ library ValidAgreementSignatureInsert {
         8495653923123431417604973247489272438418190587263600148770280649306958101930
       ]
     );
-    vk.delta2 = ValidAgreementSignatureInsertPairing.G2Point(
+    vk.delta2 = ValidDocumentIdPartPairing.G2Point(
       [
         11559732032986387107991004021392285783925812861821192530917403151452391805634,
         10857046999023057135944570762232829481370756359578518086990519993285655852781
@@ -263,26 +263,26 @@ library ValidAgreementSignatureInsert {
         8495653923123431417604973247489272438418190587263600148770280649306958101930
       ]
     );
-    vk.IC = new ValidAgreementSignatureInsertPairing.G1Point[](4);
+    vk.IC = new ValidDocumentIdPartPairing.G1Point[](4);
 
-    vk.IC[0] = ValidAgreementSignatureInsertPairing.G1Point(
-      3257841991524272350450919225738120145494306714443387956276373941614845052580,
-      19743389797253337109551225249276391618787952605076850729314034861412020856300
+    vk.IC[0] = ValidDocumentIdPartPairing.G1Point(
+      4631476629321606709963863503644355341833890829608337215731374798194923025467,
+      21395636798632430195483691299218403539343475972849355665923490837254328999775
     );
 
-    vk.IC[1] = ValidAgreementSignatureInsertPairing.G1Point(
-      630406748858723210183044791416555805350644685359371570718726952505544773707,
-      9783461240509207243597373690388964790079181399799678979224344615782050700804
+    vk.IC[1] = ValidDocumentIdPartPairing.G1Point(
+      14601582382492115539440975990325524105292910300876950861228934789045542540168,
+      12542940585414370747680710404293721891916102024883419966779069383647137514690
     );
 
-    vk.IC[2] = ValidAgreementSignatureInsertPairing.G1Point(
-      20829545323261885867463771255151129522929171465367663989338959638931350019613,
-      4120419466622554221924269334580142065168989787579409941615054690929282802070
+    vk.IC[2] = ValidDocumentIdPartPairing.G1Point(
+      12484088194855679583364627587435286081377974348171982652067320683249684705675,
+      15676813124268425324999345059341171660438844902379864400373076613461440201430
     );
 
-    vk.IC[3] = ValidAgreementSignatureInsertPairing.G1Point(
-      10878639004612582775002621814338760688111687182923042972308009493651833361451,
-      10870388265395265270203856510858905646926009072683333040152039559487068792709
+    vk.IC[3] = ValidDocumentIdPartPairing.G1Point(
+      154229978114960658484980129798695258660836361675373748293375196692179792486,
+      2357025878516963824214321329203834159180109527275256935490607252332606404641
     );
   }
 
@@ -294,19 +294,19 @@ library ValidAgreementSignatureInsert {
     VerifyingKey memory vk = verifyingKey();
     require(input.length + 1 == vk.IC.length, "verifier-bad-input");
     // Compute the linear combination vk_x
-    ValidAgreementSignatureInsertPairing.G1Point
-      memory vk_x = ValidAgreementSignatureInsertPairing.G1Point(0, 0);
+    ValidDocumentIdPartPairing.G1Point memory vk_x = ValidDocumentIdPartPairing
+      .G1Point(0, 0);
     for (uint i = 0; i < input.length; i++) {
       require(input[i] < snark_scalar_field, "verifier-gte-snark-scalar-field");
-      vk_x = ValidAgreementSignatureInsertPairing.addition(
+      vk_x = ValidDocumentIdPartPairing.addition(
         vk_x,
-        ValidAgreementSignatureInsertPairing.scalar_mul(vk.IC[i + 1], input[i])
+        ValidDocumentIdPartPairing.scalar_mul(vk.IC[i + 1], input[i])
       );
     }
-    vk_x = ValidAgreementSignatureInsertPairing.addition(vk_x, vk.IC[0]);
+    vk_x = ValidDocumentIdPartPairing.addition(vk_x, vk.IC[0]);
     if (
-      !ValidAgreementSignatureInsertPairing.pairingProd4(
-        ValidAgreementSignatureInsertPairing.negate(proof.A),
+      !ValidDocumentIdPartPairing.pairingProd4(
+        ValidDocumentIdPartPairing.negate(proof.A),
         proof.B,
         vk.alfa1,
         vk.beta2,
@@ -327,12 +327,12 @@ library ValidAgreementSignatureInsert {
     uint[3] memory input
   ) public view returns (bool r) {
     Proof memory proof;
-    proof.A = ValidAgreementSignatureInsertPairing.G1Point(a[0], a[1]);
-    proof.B = ValidAgreementSignatureInsertPairing.G2Point(
+    proof.A = ValidDocumentIdPartPairing.G1Point(a[0], a[1]);
+    proof.B = ValidDocumentIdPartPairing.G2Point(
       [b[0][0], b[0][1]],
       [b[1][0], b[1][1]]
     );
-    proof.C = ValidAgreementSignatureInsertPairing.G1Point(c[0], c[1]);
+    proof.C = ValidDocumentIdPartPairing.G1Point(c[0], c[1]);
     uint[] memory inputValues = new uint[](input.length);
     for (uint i = 0; i < input.length; i++) {
       inputValues[i] = input[i];

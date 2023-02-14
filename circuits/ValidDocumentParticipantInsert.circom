@@ -4,34 +4,36 @@ include "./templates/VerifiedParticipant.circom";
 include "../node_modules/circomlib/circuits/smt/smtprocessor.circom";
 
 template ValidDocumentParticipantInsert (nLevels) {
+   var documentNLevels = 5;
+
    signal input root;
 
    signal input documentId;
-   signal input documentIdSiblings[nLevels];
+   signal input documentIdSiblings[documentNLevels];
 
    signal input initiator;
-   signal input initiatorSiblings[nLevels];
+   signal input initiatorSiblings[documentNLevels];
 
    signal input role;
-   signal input roleSiblings[nLevels];
+   signal input roleSiblings[documentNLevels];
 
    signal input subrole;
-   signal input subroleSiblings[nLevels];
+   signal input subroleSiblings[documentNLevels];
 
    signal input name;
-   signal input nameSiblings[nLevels];
+   signal input nameSiblings[documentNLevels];
 
    signal input uniqueIdentifier;
-   signal input uniqueIdentifierSiblings[nLevels];
+   signal input uniqueIdentifierSiblings[documentNLevels];
 
    signal input verificationIPAddress;
-   signal input verificationIPAddressSiblings[nLevels];
+   signal input verificationIPAddressSiblings[documentNLevels];
    
    signal input verificationMethod;
-   signal input verificationMethodSiblings[nLevels];
+   signal input verificationMethodSiblings[documentNLevels];
 
    signal input verificationTimestamp;
-   signal input verificationTimestampSiblings[nLevels];
+   signal input verificationTimestampSiblings[documentNLevels];
 
    signal input Ax; // first 32 bytes of public key
    signal input Ay; // second 32 bytes of public key
@@ -88,4 +90,4 @@ template ValidDocumentParticipantInsert (nLevels) {
    newRoot === processor.newRoot;
 }
 
-component main  {public [documentId, oldRoot, newRoot]} = ValidDocumentParticipantInsert(5);
+component main  {public [documentId, oldRoot, newRoot]} = ValidDocumentParticipantInsert(20);

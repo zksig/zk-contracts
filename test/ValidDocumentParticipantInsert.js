@@ -31,13 +31,22 @@ describe("ValidDocumentParticipantInsert circuit", () => {
     const sig = eddsa.signPoseidon(privateKey, participantTree.root);
 
     const tree = await newMemEmptyTrie();
+    for (let i = 0; i < 25; i++) {
+      await tree.insert(
+        `${i}2406528692252135119456532763175948575940741210963338630389976236458137077${i
+          .toString()
+          .padStart(2, "0")}`,
+        0
+      );
+    }
     const { oldRoot, siblings, newRoot, oldKey, isOld0 } = await tree.insert(
       sig.S,
       0
     );
+
     const siblingHashes = siblings.map((s) => tree.F.toObject(s));
-    while (siblingHashes.length < 5) siblingHashes.push(0);
-    
+    while (siblingHashes.length < 20) siblingHashes.push(0);
+
     const witness = await circuit.calculateWitness({
       root: participantTree.F.toObject(participantTree.root),
       ...input,
@@ -68,11 +77,11 @@ function getKey(key) {
   return `0x${Buffer.from(key).toString("hex")}`;
 }
 
-async function getSiblings(tree, key) {
+async function getSiblings(tree, key, total = 5) {
   const siblings = (await tree.find(key)).siblings.map((s) =>
     tree.F.toObject(s)
   );
-  while (siblings.length < 5) siblings.push(0);
+  while (siblings.length < total) siblings.push(0);
 
   return siblings;
 }

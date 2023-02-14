@@ -9,29 +9,6 @@ const deployer: DeployFunction = async ({
 
   const { deployer } = await getNamedAccounts();
 
-  const validAgreementId = await deploy("ValidAgreementId", {
-    from: deployer,
-    args: [],
-    log: true,
-  });
-
-  console.log(
-    `ValidAgreementId library deployed to ${validAgreementId.address}`
-  );
-
-  const validAgreementSignatureInsert = await deploy(
-    "ValidAgreementSignatureInsert",
-    {
-      from: deployer,
-      args: [],
-      log: true,
-    }
-  );
-
-  console.log(
-    `ValidAgreementSignatureInsert library deployed to ${validAgreementSignatureInsert.address}`
-  );
-
   const validDocumentId = await deploy("ValidDocumentId", {
     from: deployer,
     args: [],
@@ -51,6 +28,39 @@ const deployer: DeployFunction = async ({
 
   console.log(
     `ValidDocumentVerifierInsert library deployed to ${validDocumentVerifierInsert.address}`
+  );
+
+  const validVerifiedParticipantData = await deploy(
+    "ValidVerifiedParticipantData",
+    {
+      from: deployer,
+      args: [],
+      log: true,
+    }
+  );
+
+  console.log(
+    `ValidVerifiedParticipantData library deployed to ${validVerifiedParticipantData.address}`
+  );
+
+  const validDocumentIdPart = await deploy("ValidDocumentIdPart", {
+    from: deployer,
+    args: [],
+    log: true,
+  });
+
+  console.log(
+    `ValidDocumentIdPart library deployed to ${validDocumentIdPart.address}`
+  );
+
+  const validDocumentPage = await deploy("ValidDocumentPage", {
+    from: deployer,
+    args: [],
+    log: true,
+  });
+
+  console.log(
+    `ValidDocumentPage library deployed to ${validDocumentPage.address}`
   );
 };
 

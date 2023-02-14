@@ -2,11 +2,15 @@ pragma circom 2.0.0;
 
 include "./templates/Participant.circom";
 include "../node_modules/circomlib/circuits/eddsaposeidon.circom";
+include "../node_modules/circomlib/circuits/smt/smtverifier.circom";
 
 template ValidVerifiedParticipantData() {
    var nLevels = 5;
 
-   signal input root;
+   signal input participantsRoot;
+   signal input participantSiblings[20];
+
+   signal input participantId;
    signal input key;
    signal input value;
    signal input siblings[nLevels];
@@ -18,12 +22,10 @@ template ValidVerifiedParticipantData() {
    signal input R8y; // second 32 bytes of signature
 
    component participantPart = ParticipantPart(nLevels);
-   participantPart.root <== root;
+   participantPart.root <== participantId;
    participantPart.key <== key;
    participantPart.value <== value;
-   for(var i = 0; i < nLevels; i++) {
-      participantPart.siblings[i] <== siblings[i];
-   }
+   participantPart.siblings <== siblings;
 
    component sig = EdDSAPoseidonVerifier();
    sig.enabled <== 1;
@@ -32,7 +34,18 @@ template ValidVerifiedParticipantData() {
    sig.S <== S;
    sig.R8x <== R8x;
    sig.R8y <== R8y;
-   sig.M <== root;
+   sig.M <== participantId;
+
+   component smt = SMTVerifier(20);
+   smt.enabled <== 1;
+   smt.root <== participantsRoot;
+   smt.oldKey <== 0;
+   smt.oldValue <== 0;
+   smt.isOld0 <== 0;
+   smt.key <== S;
+   smt.value <== 0;
+   smt.fnc <== 0;
+   smt.siblings <== participantSiblings;
 }
 
-component main  {public [key, value, S, R8x, R8y]} = ValidVerifiedParticipantData();
+component main  {public [participantsRoot, key, value, S]} = ValidVerifiedParticipantData();

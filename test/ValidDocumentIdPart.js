@@ -1,13 +1,13 @@
 const { newMemEmptyTrie } = require("circomlibjs");
 const { wasm } = require("circom_tester");
 
-describe("ValidAgreementIdPart circuit", () => {
+describe("ValidDocumentIdPart circuit", () => {
   let circuit;
   before(async () => {
-    circuit = await wasm("./circuits/ValidAgreementIdPart.circom");
+    circuit = await wasm("./circuits/ValidDocumentIdPart.circom");
   });
 
-  it("passes if right title is in agreement id", async () => {
+  it("passes if right title is in document id", async () => {
     const tree = await newMemEmptyTrie();
     await tree.insert(
       getKey("title"),
@@ -39,7 +39,7 @@ async function getSiblings(tree, key) {
   const siblings = (await tree.find(getKey(key))).siblings.map((s) =>
     tree.F.toObject(s)
   );
-  while (siblings.length < 10) siblings.push(0);
+  while (siblings.length < 5) siblings.push(0);
 
   return siblings;
 }

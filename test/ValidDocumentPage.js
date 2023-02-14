@@ -1,10 +1,10 @@
 const { newMemEmptyTrie } = require("circomlibjs");
 const { wasm } = require("circom_tester");
 
-describe("ValidAgreementPage circuit", () => {
+describe("ValidDocumentPage circuit", () => {
   let circuit;
   before(async () => {
-    circuit = await wasm("./circuits/ValidAgreementPage.circom");
+    circuit = await wasm("./circuits/ValidDocumentPage.circom");
   });
 
   it("passes if page is included", async () => {
@@ -16,22 +16,19 @@ describe("ValidAgreementPage circuit", () => {
     const siblingHashes = (await tree.find(3)).siblings.map((s) =>
       tree.F.toObject(s)
     );
-    while (siblingHashes.length < 10) siblingHashes.push(0);
+    while (siblingHashes.length < 20) siblingHashes.push(0);
 
     const agreementTree = await newMemEmptyTrie();
-    await agreementTree.insert(
-      `0x${Buffer.from("pdfHash").toString("hex")}`,
-      agreementTree.F.toObject(tree.root)
+    await agreementTree.insert(5, agreementTree.F.toObject(tree.root));
+    const pdfHashSiblings = (await agreementTree.find(5)).siblings.map((s) =>
+      agreementTree.F.toObject(s)
     );
-    const pdfHashSiblings = (
-      await agreementTree.find(`0x${Buffer.from("pdfHash").toString("hex")}`)
-    ).siblings.map((s) => agreementTree.F.toObject(s));
-    while (pdfHashSiblings.length < 10) pdfHashSiblings.push(0);
+    while (pdfHashSiblings.length < 5) pdfHashSiblings.push(0);
 
     const witness = await circuit.calculateWitness({
       pdfHashSiblings,
       pdfHash: tree.F.toObject(tree.root),
-      agreementId: agreementTree.F.toObject(agreementTree.root),
+      documentId: agreementTree.F.toObject(agreementTree.root),
       siblings: siblingHashes,
       pageHash: 3,
     });
