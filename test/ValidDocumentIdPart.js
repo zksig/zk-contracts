@@ -19,6 +19,9 @@ describe("ValidDocumentIdPart circuit", () => {
     await tree.insert(getKey("totalPages"), "5");
     await tree.insert(getKey("encryptionKey"), "55555");
 
+    const a = await tree.find(1)
+    a
+
     const witness = await circuit.calculateWitness({
       root: tree.F.toObject(tree.root),
       key: getKey("title"),

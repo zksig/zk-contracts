@@ -63,8 +63,6 @@ contract ZKDocument is ERC2771Context {
     );
     require(valid, "Invalid participant insert");
 
-    // TODO verify share
-
     // emit events
     emit NewDocumentParticipant(
       params.documentId,

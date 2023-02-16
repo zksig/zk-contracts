@@ -7,15 +7,19 @@ const deployer: DeployFunction = async ({
 }: HardhatRuntimeEnvironment) => {
   const { deploy } = deployments;
 
-  const { deployer, forwarder, validDocumentId, validDocumentVerifierInsert } =
-    await getNamedAccounts();
+  const {
+    deployer,
+    forwarder,
+    validDocumentId,
+    validDocumentParticipantInsert,
+  } = await getNamedAccounts();
 
   const { address } = await deploy("ZKDocument", {
     from: deployer,
     args: [forwarder],
     libraries: {
       ValidDocumentId: validDocumentId,
-      ValidDocumentParticipantInsert: validDocumentVerifierInsert,
+      ValidDocumentParticipantInsert: validDocumentParticipantInsert,
     },
     log: true,
     proxy: true,

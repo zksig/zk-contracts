@@ -27,8 +27,8 @@ const config: HardhatUserConfig = {
     validDocumentId: {
       mumbai: "0x4E17ADA2a503D80006a217789ADc09e3ab47A22c",
     },
-    validDocumentVerifierInsert: {
-      mumbai: "0x14Eebc7B1fd6d874bBf578551aFdF007E82dAE67",
+    validDocumentParticipantInsert: {
+      mumbai: "0xb57374FA5B86179D3BFb9a893958910AF6753384",
     },
   },
 };
