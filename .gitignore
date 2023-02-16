@@ -23,6 +23,7 @@ ValidDocumentId/
 ValidDocumentIdPart/
 ValidDocumentPage/*
 ValidDocumentParticipantInsert/*
+ProofOfSignature/*
 
 sig.js
 tree.js

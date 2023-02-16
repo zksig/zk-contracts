@@ -62,6 +62,16 @@ const deployer: DeployFunction = async ({
   console.log(
     `ValidDocumentPage library deployed to ${validDocumentPage.address}`
   );
+
+  const proofOfSignature = await deploy("ProofOfSignature", {
+    from: deployer,
+    args: [],
+    log: true,
+  });
+
+  console.log(
+    `ProofOfSignature library deployed to ${proofOfSignature.address}`
+  );
 };
 
 deployer.tags = ["libraries"];

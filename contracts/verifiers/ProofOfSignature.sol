@@ -13,7 +13,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.9;
 
-library Pairing {
+library ProofOfSignaturePairing {
   struct G1Point {
     uint X;
     uint Y;
@@ -212,28 +212,28 @@ library Pairing {
   }
 }
 
-contract Verifier {
-  using Pairing for *;
+library ProofOfSignature {
+  using ProofOfSignaturePairing for *;
   struct VerifyingKey {
-    Pairing.G1Point alfa1;
-    Pairing.G2Point beta2;
-    Pairing.G2Point gamma2;
-    Pairing.G2Point delta2;
-    Pairing.G1Point[] IC;
+    ProofOfSignaturePairing.G1Point alfa1;
+    ProofOfSignaturePairing.G2Point beta2;
+    ProofOfSignaturePairing.G2Point gamma2;
+    ProofOfSignaturePairing.G2Point delta2;
+    ProofOfSignaturePairing.G1Point[] IC;
   }
   struct Proof {
-    Pairing.G1Point A;
-    Pairing.G2Point B;
-    Pairing.G1Point C;
+    ProofOfSignaturePairing.G1Point A;
+    ProofOfSignaturePairing.G2Point B;
+    ProofOfSignaturePairing.G1Point C;
   }
 
   function verifyingKey() internal pure returns (VerifyingKey memory vk) {
-    vk.alfa1 = Pairing.G1Point(
+    vk.alfa1 = ProofOfSignaturePairing.G1Point(
       1423427196573326869960381667785122074357921755684386940651843063386195096976,
       8023961015251680984904169932113418146783590031556471530623177414331800090437
     );
 
-    vk.beta2 = Pairing.G2Point(
+    vk.beta2 = ProofOfSignaturePairing.G2Point(
       [
         14981788778016161064675824813766262164386590279136355427549180094813413442058,
         15280203404894510920756392128045715359164951458648562381898759371631084950081
@@ -243,7 +243,7 @@ contract Verifier {
         17421767135883714886528432224440823873509790917646536951997623325206225910141
       ]
     );
-    vk.gamma2 = Pairing.G2Point(
+    vk.gamma2 = ProofOfSignaturePairing.G2Point(
       [
         11559732032986387107991004021392285783925812861821192530917403151452391805634,
         10857046999023057135944570762232829481370756359578518086990519993285655852781
@@ -253,7 +253,7 @@ contract Verifier {
         8495653923123431417604973247489272438418190587263600148770280649306958101930
       ]
     );
-    vk.delta2 = Pairing.G2Point(
+    vk.delta2 = ProofOfSignaturePairing.G2Point(
       [
         11559732032986387107991004021392285783925812861821192530917403151452391805634,
         10857046999023057135944570762232829481370756359578518086990519993285655852781
@@ -263,26 +263,26 @@ contract Verifier {
         8495653923123431417604973247489272438418190587263600148770280649306958101930
       ]
     );
-    vk.IC = new Pairing.G1Point[](4);
+    vk.IC = new ProofOfSignaturePairing.G1Point[](4);
 
-    vk.IC[0] = Pairing.G1Point(
-      13837272257313917721849080211884434103866040856743650610354757620039537770892,
-      15493312409364116295003732770475812692534082283277098798983213237081159590816
+    vk.IC[0] = ProofOfSignaturePairing.G1Point(
+      13693444731377407620465730917363615809003285620001317210642230975130016368225,
+      14497678992428819968769010331988933503933503749374002659507222383311308103807
     );
 
-    vk.IC[1] = Pairing.G1Point(
-      6368445868997701705517610986048430491246783464942629957166196846835533529047,
-      10698044751575506313150260283039965035422117651859357958370936265529812339057
+    vk.IC[1] = ProofOfSignaturePairing.G1Point(
+      10628131569704358478718824667816691433033864266965242446080309402076099953757,
+      2321270101206271367067554281517752990280501273816335901315143800484515155402
     );
 
-    vk.IC[2] = Pairing.G1Point(
-      18756488764551919976893971751235135412938947849783294654546029981447115594151,
-      15311456965037301773319757545805977382049824984514468492042619733720964156877
+    vk.IC[2] = ProofOfSignaturePairing.G1Point(
+      2603010714420337597778762252191609250836968712389773221946502241981429087227,
+      5599101033619198563286404034189748635528767792810164895032622014925314309864
     );
 
-    vk.IC[3] = Pairing.G1Point(
-      599415067923855830535061775173353308653664455485106189656511120242252347562,
-      14501970852462176411823416375958720138022449604433488284667326313920199586491
+    vk.IC[3] = ProofOfSignaturePairing.G1Point(
+      3071181582000389131763382751623131201455175934561455377211350747999386026140,
+      3996187350491867002255418389729336339333963371621245176458437522960286711019
     );
   }
 
@@ -294,15 +294,19 @@ contract Verifier {
     VerifyingKey memory vk = verifyingKey();
     require(input.length + 1 == vk.IC.length, "verifier-bad-input");
     // Compute the linear combination vk_x
-    Pairing.G1Point memory vk_x = Pairing.G1Point(0, 0);
+    ProofOfSignaturePairing.G1Point memory vk_x = ProofOfSignaturePairing
+      .G1Point(0, 0);
     for (uint i = 0; i < input.length; i++) {
       require(input[i] < snark_scalar_field, "verifier-gte-snark-scalar-field");
-      vk_x = Pairing.addition(vk_x, Pairing.scalar_mul(vk.IC[i + 1], input[i]));
+      vk_x = ProofOfSignaturePairing.addition(
+        vk_x,
+        ProofOfSignaturePairing.scalar_mul(vk.IC[i + 1], input[i])
+      );
     }
-    vk_x = Pairing.addition(vk_x, vk.IC[0]);
+    vk_x = ProofOfSignaturePairing.addition(vk_x, vk.IC[0]);
     if (
-      !Pairing.pairingProd4(
-        Pairing.negate(proof.A),
+      !ProofOfSignaturePairing.pairingProd4(
+        ProofOfSignaturePairing.negate(proof.A),
         proof.B,
         vk.alfa1,
         vk.beta2,
@@ -323,9 +327,12 @@ contract Verifier {
     uint[3] memory input
   ) public view returns (bool r) {
     Proof memory proof;
-    proof.A = Pairing.G1Point(a[0], a[1]);
-    proof.B = Pairing.G2Point([b[0][0], b[0][1]], [b[1][0], b[1][1]]);
-    proof.C = Pairing.G1Point(c[0], c[1]);
+    proof.A = ProofOfSignaturePairing.G1Point(a[0], a[1]);
+    proof.B = ProofOfSignaturePairing.G2Point(
+      [b[0][0], b[0][1]],
+      [b[1][0], b[1][1]]
+    );
+    proof.C = ProofOfSignaturePairing.G1Point(c[0], c[1]);
     uint[] memory inputValues = new uint[](input.length);
     for (uint i = 0; i < input.length; i++) {
       inputValues[i] = input[i];
