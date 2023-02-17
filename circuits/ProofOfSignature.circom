@@ -31,21 +31,7 @@ template ProofOfSignature() {
   signal input originatorNameSiblings[nLevels];
   signal input originatorUniqueIdentifierSiblings[nLevels];
 
-  signal input Ax; // first 32 bytes of public key
-  signal input Ay; // second 32 bytes of public key
   signal input S;
-  signal input R8x; // first 32 bytes of signature
-  signal input R8y; // second 32 bytes of signature
-
-  // Verify valid Signature
-  component sig = EdDSAPoseidonVerifier();
-  sig.enabled <== 1;
-  sig.Ax <== Ax;
-  sig.Ay <== Ay;
-  sig.S <== S;
-  sig.R8x <== R8x;
-  sig.R8y <== R8y;
-  sig.M <== signerParticipantId;
 
   // Verify signature is part of audit trail
   component signerSMT = SMTVerifier(20);
@@ -129,4 +115,13 @@ template ProofOfSignature() {
   validOriginatorUniqueIdentifier.siblings <== originatorUniqueIdentifierSiblings;
 }
 
-component main  {public [documentId, participantsRoot, signerName]} = ProofOfSignature();
+component main  {public [
+  documentId,
+  participantsRoot,
+  documentTitle,
+  signerName,
+  signerSubrole,
+  signedAt,
+  originatorName,
+  originatorUniqueIdentifier
+]} = ProofOfSignature();

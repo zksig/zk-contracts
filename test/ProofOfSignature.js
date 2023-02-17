@@ -140,74 +140,8 @@ describe("ProofOfSignature circuit", () => {
         5
       ),
 
-      Ax: eddsa.F.toObject(signerPublicKey[0]),
-      Ay: eddsa.F.toObject(signerPublicKey[1]),
       S: signerSig.S,
-      R8x: eddsa.F.toObject(signerSig.R8[0]),
-      R8y: eddsa.F.toObject(signerSig.R8[1]),
     });
-
-    console.log(
-      JSON.stringify(
-        {
-          documentTitle: getKey(pedersen.hash("Employment Agreement")),
-          documentTitleSiblings: await getSiblings(documentTree, 0),
-
-          participantsRoot: documentParticipantsTree.F.toObject(
-            documentParticipantsTree.root
-          ),
-          signerParticipantSiblings: await getSiblings(
-            documentParticipantsTree,
-            signerSig.S,
-            20
-          ),
-          originatorParticipantSiblings: await getSiblings(
-            documentParticipantsTree,
-            originatorSig.S,
-            20
-          ),
-
-          documentId: documentTree.F.toObject(documentTree.root),
-          signerParticipantId: signerParticipantTree.F.toObject(
-            signerParticipantTree.root
-          ),
-          signerName: getKey(pedersen.hash("Test Signer")),
-          signerSubrole: getKey(pedersen.hash("employee")),
-          signedAt: "9876543210",
-
-          documentIdSiblings: await getSiblings(signerParticipantTree, 0),
-          signerRoleSiblings: await getSiblings(signerParticipantTree, 2),
-          signerNameSiblings: await getSiblings(signerParticipantTree, 4),
-          signerSubroleSiblings: await getSiblings(signerParticipantTree, 3),
-          signedAtSiblings: await getSiblings(signerParticipantTree, 8),
-
-          originatorParticipantId: originatorParticipantTree.F.toObject(
-            originatorParticipantTree.root
-          ),
-          originatorSignature: originatorSig.S,
-          originatorName: getKey(pedersen.hash("Test Originator")),
-          originatorUniqueIdentifier: getKey(
-            pedersen.hash("originator@test.com")
-          ),
-          originatorNameSiblings: await getSiblings(
-            originatorParticipantTree,
-            4
-          ),
-          originatorUniqueIdentifierSiblings: await getSiblings(
-            originatorParticipantTree,
-            5
-          ),
-
-          Ax: eddsa.F.toObject(signerPublicKey[0]),
-          Ay: eddsa.F.toObject(signerPublicKey[1]),
-          S: signerSig.S,
-          R8x: eddsa.F.toObject(signerSig.R8[0]),
-          R8y: eddsa.F.toObject(signerSig.R8[1]),
-        },
-        null,
-        2
-      )
-    );
 
     await circuit.checkConstraints(witness);
   });
