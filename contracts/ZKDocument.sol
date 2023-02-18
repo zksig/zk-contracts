@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/metatx/ERC2771Context.sol";
 import "@openzeppelin/contracts/metatx/MinimalForwarder.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
@@ -12,7 +11,7 @@ import "./types/ZKDocumentTypes.sol";
 import "./verifiers/ValidDocumentId.sol";
 import "./verifiers/ValidDocumentParticipantInsert.sol";
 
-contract ZKDocument is ERC2771Context, Ownable, ERC721Holder {
+contract ZKDocument is ERC2771Context, ERC721Holder {
   event CreateDocument(
     address indexed from,
     uint256 documentId,
@@ -32,6 +31,7 @@ contract ZKDocument is ERC2771Context, Ownable, ERC721Holder {
     bool initialized;
   }
 
+  address private _admin;
   mapping(uint256 => Document) documents;
 
   uint256 private _documentsTableId;
@@ -40,9 +40,27 @@ contract ZKDocument is ERC2771Context, Ownable, ERC721Holder {
   string private constant _DOCUMENT_TABLE_PREFIX = "zk_documents";
   string private constant _AUDIT_LOG_TABLE_PREFIX = "zk_audit_trail";
 
-  constructor(
-    MinimalForwarder forwarder
-  ) ERC2771Context(address(forwarder)) Ownable() {}
+  constructor(MinimalForwarder forwarder) ERC2771Context(address(forwarder)) {}
+
+  function initialize(MinimalForwarder forwarder, address admin) public {
+    require(_admin == address(0), "Contract already initialized");
+    ERC2771Context(address(forwarder));
+    _admin = admin;
+  }
+
+  modifier onlyAdmin() {
+    require(_admin == _msgSender(), "caller is not the admin");
+    _;
+  }
+
+  function getAdmin() public view returns (address) {
+    return _admin;
+  }
+
+  function transferAdmin(address newAdmin) public onlyAdmin {
+    require(newAdmin != address(0), "new admin is the zero address");
+    _admin = newAdmin;
+  }
 
   function getDocumentsTableId() public view returns (uint256) {
     return _documentsTableId;
@@ -52,7 +70,7 @@ contract ZKDocument is ERC2771Context, Ownable, ERC721Holder {
     return _auditLogTableId;
   }
 
-  function setupTables() public onlyOwner {
+  function setupTables() public onlyAdmin {
     _documentsTableId = TablelandDeployments.get().createTable(
       address(this),
       SQLHelpers.toCreateFromSchema(
@@ -114,16 +132,16 @@ contract ZKDocument is ERC2771Context, Ownable, ERC721Holder {
     doc.initialized = true;
 
     // store document data
-    // TablelandDeployments.get().runSQL(
-    //   address(this),
-    //   _documentsTableId,
-    //   SQLHelpers.toInsert(
-    //     _DOCUMENT_TABLE_PREFIX,
-    //     _documentsTableId,
-    //     "id,status,expectedParticipantCount,totalParticipontCount,encryptedDetailsCID,zkpA0,zkpA1,zkpB00,zkpB01,zkpB10,zkpB11,zkpC0,zkpC1",
-    //     createDocumentInsertQuery(params)
-    //   )
-    // );
+    TablelandDeployments.get().runSQL(
+      address(this),
+      _documentsTableId,
+      SQLHelpers.toInsert(
+        _DOCUMENT_TABLE_PREFIX,
+        _documentsTableId,
+        "id,status,expectedParticipantCount,totalParticipontCount,encryptedDetailsCID,zkpA0,zkpA1,zkpB00,zkpB01,zkpB10,zkpB11,zkpC0,zkpC1",
+        createDocumentInsertQuery(params)
+      )
+    );
 
     // emit events
     emit CreateDocument(_msgSender(), params.documentId, params.proof);
@@ -147,16 +165,16 @@ contract ZKDocument is ERC2771Context, Ownable, ERC721Holder {
     require(valid, "Invalid participant insert");
 
     // store participant in audit log
-    // TablelandDeployments.get().runSQL(
-    //   address(this),
-    //   _auditLogTableId,
-    //   SQLHelpers.toInsert(
-    //     _AUDIT_LOG_TABLE_PREFIX,
-    //     _auditLogTableId,
-    //     "documentId,verifiedParticipant,encryptedParticipantCID,smtRoot,nonce,zkpA0,zkpA1,zkpB00,zkpB01,zkpB10,zkpB11,zkpC0,zkpC1",
-    //     createAuditLogInsertQuery(params)
-    //   )
-    // );
+    TablelandDeployments.get().runSQL(
+      address(this),
+      _auditLogTableId,
+      SQLHelpers.toInsert(
+        _AUDIT_LOG_TABLE_PREFIX,
+        _auditLogTableId,
+        "documentId,verifiedParticipant,encryptedParticipantCID,smtRoot,nonce,zkpA0,zkpA1,zkpB00,zkpB01,zkpB10,zkpB11,zkpC0,zkpC1",
+        createAuditLogInsertQuery(params)
+      )
+    );
 
     // update document participants root
     doc.participantsRoot = params.root;
@@ -171,24 +189,6 @@ contract ZKDocument is ERC2771Context, Ownable, ERC721Holder {
     );
 
     // TODO contract hooks
-  }
-
-  function _msgSender()
-    internal
-    view
-    override(Context, ERC2771Context)
-    returns (address sender)
-  {
-    sender = ERC2771Context._msgSender();
-  }
-
-  function _msgData()
-    internal
-    view
-    override(Context, ERC2771Context)
-    returns (bytes calldata)
-  {
-    return ERC2771Context._msgData();
   }
 
   function createDocumentInsertQuery(

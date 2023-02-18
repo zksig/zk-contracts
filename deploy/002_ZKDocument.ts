@@ -22,7 +22,14 @@ const deployer: DeployFunction = async ({
       ValidDocumentParticipantInsert: validDocumentParticipantInsert,
     },
     log: true,
-    proxy: true,
+    proxy: {
+      execute: {
+        init: {
+          methodName: "initialize",
+          args: [forwarder, deployer],
+        },
+      },
+    },
   });
 
   console.log(`Deployed to ${address}`);

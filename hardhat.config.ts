@@ -4,6 +4,10 @@ import "@nomicfoundation/hardhat-toolbox";
 
 const config: HardhatUserConfig = {
   solidity: "0.8.18",
+  defaultNetwork: "mumbai",
+  mocha: {
+    timeout: 100000000,
+  },
   networks: {
     mumbai: {
       url: "https://rpc-mumbai.maticvigil.com",
@@ -18,17 +22,11 @@ const config: HardhatUserConfig = {
     forwarder: {
       mumbai: "0x9c66b91cff4855ddf693889335acbb0564ea19b8",
     },
-    validAgreementId: {
-      mumbai: "0x809AC0b9E5A424f80F7224348beAc3719320679D",
-    },
-    validAgreementSignatureInsert: {
-      mumbai: "0x1732cf384eF96bEc9a61bd6B854F84e5eF9351cf",
-    },
     validDocumentId: {
-      mumbai: "0x4E17ADA2a503D80006a217789ADc09e3ab47A22c",
+      mumbai: "0xc76B836b2489E65BF7F7593E725D333b086E6341",
     },
     validDocumentParticipantInsert: {
-      mumbai: "0xb57374FA5B86179D3BFb9a893958910AF6753384",
+      mumbai: "0xa295b447f30b3c947CAD05eB09aBDf7D3AdA905F",
     },
   },
 };

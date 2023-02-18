@@ -1,13 +1,19 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { LocalTableland } from "@tableland/local";
 import { ZKDocument } from "../typechain-types";
+
+const lt = new LocalTableland({ silent: true });
 
 describe("ZKDocument", () => {
   let owner: SignerWithAddress;
   let contract: ZKDocument;
 
   before(async () => {
+    lt.start();
+    await lt.isReady();
+
     [owner] = await ethers.getSigners();
     const validDocumentIdFactory = await ethers.getContractFactory(
       "ValidDocumentId"
@@ -27,7 +33,14 @@ describe("ZKDocument", () => {
         ValidDocumentParticipantInsert: validDocumentParticipantInsert.address,
       },
     });
-    contract = await zkDocumentFactory.deploy(ethers.constants.AddressZero);
+    contract = await zkDocumentFactory.deploy(
+      ethers.constants.AddressZero,
+      true
+    );
+  });
+
+  after(async () => {
+    await lt.shutdown();
   });
 
   it("creates a document with valid id", async () => {
