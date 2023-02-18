@@ -3,7 +3,7 @@ import "hardhat-deploy";
 import "@nomicfoundation/hardhat-toolbox";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.17",
+  solidity: "0.8.18",
   networks: {
     mumbai: {
       url: "https://rpc-mumbai.maticvigil.com",

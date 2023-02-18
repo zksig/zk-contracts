@@ -11,7 +11,8 @@ describe("ValidDocumentParticipantInsert circuit", () => {
     const eddsa = await buildEddsa();
 
     const input = {
-      documentId: "1234",
+      documentId:
+        "2681517947090539074238088567394099335031577043496352195096235932925559489572",
       initiator: 1,
       role: getKey("ORIGINATOR"),
       subrole: 0,

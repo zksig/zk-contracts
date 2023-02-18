@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.18;
 
 library ZKDocumentTypes {
   struct ZKProof {
@@ -8,27 +8,19 @@ library ZKDocumentTypes {
     uint[2] c;
   }
 
-  struct DigitalSignature {
-    uint256 R8x;
-    uint256 R8y;
-    uint256 S;
-  }
-
-  struct Document {
-    uint256 participantsRoot;
-    ZKProof validDocumentIdProof;
-    ZKProof validParticipantsProof;
-  }
-
   struct CreateDocumentParams {
     uint256 documentId;
+    uint256 expectedParticipantCount;
+    string encryptedDetailsCID;
     ZKProof proof;
   }
 
   struct AddDocumentParticipantParams {
     uint256 documentId;
-    DigitalSignature verifiedParticipant;
+    uint256 verifiedParticipant;
+    string encryptedParticipantCID;
     uint256 root;
+    uint256 nonce;
     ZKProof proof;
   }
 }

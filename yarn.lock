@@ -789,6 +789,11 @@
   dependencies:
     antlr4ts "^0.5.0-alpha.4"
 
+"@tableland/evm@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@tableland/evm/-/evm-4.0.0.tgz#b1337043ff0ae6cd752c2a62ed3eeb9844d5e3df"
+  integrity sha512-HftJLfg2x2R/f6l6PasrQ73Za071+2T6vmJV+p5PwPtXjlb5Pl+V7rtNWAIZgWE8cQY14lWUyhzw4P/+rrEcGA==
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.9.tgz#df4907fc07a886922637b15e02d4cebc4c0021b2"
