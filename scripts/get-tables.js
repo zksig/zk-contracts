@@ -9,8 +9,10 @@ async function main() {
     },
   });
   const zkDocument = await ZKDocument.attach(
-    "0x665f62B175FA08861ed229dB0FCCdfaAAcA05dB6"
+    "0xDFE8Be6e3F5a08696106eD2133EE57Ee8164082e"
   );
+
+  // await zkDocument.setupTables();
 
   console.log(await zkDocument.getDocumentsTableId());
   console.log(await zkDocument.getAuditLogTableId());

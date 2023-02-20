@@ -20,7 +20,7 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
 
   event NewDocumentParticipant(
     uint256 indexed documentId,
-    uint256 verifiedParticipant,
+    string verifiedParticipant,
     uint256 oldRoot,
     uint256 newRoot,
     ZKDocumentTypes.ZKProof proof
@@ -217,7 +217,7 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
       string.concat(
         SQLHelpers.quote(Strings.toString(params.documentId)),
         ",",
-        SQLHelpers.quote(Strings.toString(params.verifiedParticipant)),
+        SQLHelpers.quote(params.verifiedParticipant),
         ",",
         SQLHelpers.quote(params.encryptedParticipantCID),
         ",",

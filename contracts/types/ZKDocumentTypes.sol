@@ -17,7 +17,7 @@ library ZKDocumentTypes {
 
   struct AddDocumentParticipantParams {
     uint256 documentId;
-    uint256 verifiedParticipant;
+    string verifiedParticipant;
     string encryptedParticipantCID;
     uint256 root;
     uint256 nonce;
