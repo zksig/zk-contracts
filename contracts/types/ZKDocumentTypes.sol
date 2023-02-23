@@ -10,7 +10,7 @@ library ZKDocumentTypes {
 
   struct CreateDocumentParams {
     uint256 documentId;
-    uint256 expectedParticipantCount;
+    uint32 expectedParticipantCount;
     string encryptedDetailsCID;
     ZKProof proof;
   }

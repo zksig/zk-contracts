@@ -138,7 +138,7 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
       SQLHelpers.toInsert(
         _DOCUMENT_TABLE_PREFIX,
         _documentsTableId,
-        "id,status,expectedParticipantCount,totalParticipontCount,encryptedDetailsCID,zkpA0,zkpA1,zkpB00,zkpB01,zkpB10,zkpB11,zkpC0,zkpC1",
+        "id,status,expectedParticipantCount,totalParticipantCount,encryptedDetailsCID,zkpA0,zkpA1,zkpB00,zkpB01,zkpB10,zkpB11,zkpC0,zkpC1",
         createDocumentInsertQuery(params)
       )
     );
@@ -176,6 +176,20 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
       )
     );
 
+    TablelandDeployments.get().runSQL(
+      address(this),
+      _documentsTableId,
+      SQLHelpers.toUpdate(
+        _DOCUMENT_TABLE_PREFIX,
+        _documentsTableId,
+        "totalParticipantCount=totalParticipantCount + 1, status = CASE WHEN expectedParticipantCount <= totalParticipantCount + 1 THEN 'complete' ELSE 'pending' END",
+        string.concat(
+          "id=",
+          SQLHelpers.quote(Strings.toString(params.documentId))
+        )
+      )
+    );
+
     // update document participants root
     doc.participantsRoot = params.root;
 
@@ -202,7 +216,7 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
         ",",
         Strings.toString(params.expectedParticipantCount),
         ",",
-        "0",
+        Strings.toString(0),
         ",",
         SQLHelpers.quote(params.encryptedDetailsCID),
         ",",

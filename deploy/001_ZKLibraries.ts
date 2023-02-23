@@ -72,6 +72,16 @@ const deployer: DeployFunction = async ({
   console.log(
     `ProofOfSignature library deployed to ${proofOfSignature.address}`
   );
+
+  const proofOfAgreement = await deploy("ProofOfAgreement", {
+    from: deployer,
+    args: [],
+    log: true,
+  });
+
+  console.log(
+    `ProofOfAgreement library deployed to ${proofOfAgreement.address}`
+  );
 };
 
 deployer.tags = ["libraries"];

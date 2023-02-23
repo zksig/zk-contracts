@@ -12,7 +12,7 @@ async function main() {
     "0xDFE8Be6e3F5a08696106eD2133EE57Ee8164082e"
   );
 
-  // await zkDocument.setupTables();
+  // console.log(await (await zkDocument.setupTables()).wait());
 
   console.log(await zkDocument.getDocumentsTableId());
   console.log(await zkDocument.getAuditLogTableId());

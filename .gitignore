@@ -24,6 +24,7 @@ ValidDocumentIdPart/
 ValidDocumentPage/*
 ValidDocumentParticipantInsert/*
 ProofOfSignature/*
+ProofOfAgreement/*
 
 sig.js
 tree.js
