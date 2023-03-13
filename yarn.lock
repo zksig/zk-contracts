@@ -794,10 +794,10 @@
   resolved "https://registry.yarnpkg.com/@tableland/evm/-/evm-4.0.0.tgz#b1337043ff0ae6cd752c2a62ed3eeb9844d5e3df"
   integrity sha512-HftJLfg2x2R/f6l6PasrQ73Za071+2T6vmJV+p5PwPtXjlb5Pl+V7rtNWAIZgWE8cQY14lWUyhzw4P/+rrEcGA==
 
-"@tableland/local@1.0.0-pre.4":
-  version "1.0.0-pre.4"
-  resolved "https://registry.yarnpkg.com/@tableland/local/-/local-1.0.0-pre.4.tgz#7eecba158a515cd44268ec8116dbd89c00bd91c6"
-  integrity sha512-xlx0QuFlMN9N2JbHpkbjEpOOO4CJeKdqdoSP49M7oqahmsNysmzGNVkdYnApAd1vENDCMw4r+BXlwkXVjquLGA==
+"@tableland/local@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@tableland/local/-/local-1.0.0.tgz#202331fa41e1a985c66d0df84f911617d6ea3782"
+  integrity sha512-1IHlY8Ma0zxUP+Z/uY5OfA4BSjjXSzDymO1dOaAdkA11naVZ/wQS0FI16gb1IYCo3JxvIM8NY9oCWRdLlMh/zg==
   dependencies:
     "@tableland/sdk" "^4.0.0-pre.5"
     "@tableland/validator" "^1.0.0"
@@ -2784,10 +2784,10 @@ hardhat-gas-reporter@^1.0.8:
     eth-gas-reporter "^0.2.25"
     sha1 "^1.1.1"
 
-hardhat@^2.12.6:
-  version "2.12.6"
-  resolved "https://registry.yarnpkg.com/hardhat/-/hardhat-2.12.6.tgz#ea3c058bbd81850867389d10f76037cfa52a0019"
-  integrity sha512-0Ent1O5DsPgvaVb5sxEgsQ3bJRt/Ex92tsoO+xjoNH2Qc4bFmhI5/CHVlFikulalxOPjNmw5XQ2vJFuVQFESAA==
+hardhat@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/hardhat/-/hardhat-2.13.0.tgz#d52a0ec9b733a651687e5b1c1b0ee9a11a30f3d0"
+  integrity sha512-ZlzBOLML1QGlm6JWyVAG8lVTEAoOaVm1in/RU2zoGAnYEoD1Rp4T+ZMvrLNhHaaeS9hfjJ1gJUBfiDr4cx+htQ==
   dependencies:
     "@ethersproject/abi" "^5.1.2"
     "@metamask/eth-sig-util" "^4.0.0"

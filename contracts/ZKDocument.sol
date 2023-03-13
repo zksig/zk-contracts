@@ -19,6 +19,7 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
   );
 
   event NewDocumentParticipant(
+    address indexed from,
     uint256 indexed documentId,
     string verifiedParticipant,
     uint256 oldRoot,
@@ -145,8 +146,6 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
 
     // emit events
     emit CreateDocument(_msgSender(), params.documentId, params.proof);
-
-    // TODO contract hooks
   }
 
   function addDocumentParticipant(
@@ -195,14 +194,13 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
 
     // emit events
     emit NewDocumentParticipant(
+      _msgSender(),
       params.documentId,
       params.verifiedParticipant,
       doc.participantsRoot,
       params.root,
       params.proof
     );
-
-    // TODO contract hooks
   }
 
   function createDocumentInsertQuery(

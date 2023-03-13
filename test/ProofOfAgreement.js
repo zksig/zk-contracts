@@ -48,24 +48,6 @@ describe("ProofOfAgreement circuit", () => {
       structuredDataSiblings: await getSiblings(documentTree, 2),
     });
 
-    console.log(
-      JSON.stringify(
-        {
-          documentId: documentTree.F.toObject(documentTree.root),
-          documentTitle: getKey(pedersen.hash("Employment Agreement")),
-          pdfHash:
-            "10157129442320636078015441239429970930350473330240347321202968045414332801408",
-          structuredData:
-            "6072778328777765686589340087799057556784077494424838987042795657960714018233",
-          documentTitleSiblings: await getSiblings(documentTree, 0),
-          pdfHashSiblings: await getSiblings(documentTree, 5),
-          structuredDataSiblings: await getSiblings(documentTree, 2),
-        },
-        null,
-        2
-      )
-    );
-
     await circuit.checkConstraints(witness);
   });
 });

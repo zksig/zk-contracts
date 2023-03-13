@@ -33,10 +33,9 @@ describe("ZKDocument", () => {
         ValidDocumentParticipantInsert: validDocumentParticipantInsert.address,
       },
     });
-    contract = await zkDocumentFactory.deploy(
-      ethers.constants.AddressZero,
-      true
-    );
+    contract = await zkDocumentFactory.deploy(ethers.constants.AddressZero);
+    await contract.initialize(ethers.constants.AddressZero, owner.address);
+    await contract.setupTables();
   });
 
   after(async () => {
