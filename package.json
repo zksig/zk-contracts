@@ -35,7 +35,7 @@
     "mocha": "^10.2.0",
     "multiformats": "^11.0.1",
     "prettier-plugin-solidity": "^1.1.1",
-    "snarkjs": "^0.5.0",
+    "snarkjs": "^0.6.8",
     "solidity-coverage": "^0.8.0",
     "ts-node": ">=8.0.0",
     "tweetnacl": "^1.0.3",
