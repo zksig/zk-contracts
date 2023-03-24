@@ -24,7 +24,7 @@ template DocumentIdPart(nLevels) {
 }
 
 template DocumentId () {
-   var nLevels = 5;
+   var nLevels = 20;
 
    signal input id;
 
@@ -34,17 +34,20 @@ template DocumentId () {
    signal input type;
    signal input typeSiblings[nLevels];
 
-   signal input structuredData;
-   signal input structuredDataSiblings[nLevels];
-
    signal input pdfCID;
    signal input pdfCIDSiblings[nLevels];
 
    signal input encryptedPDFCID;
    signal input encryptedPDFCIDSiblings[nLevels];
 
-   signal input pdfHash;
-   signal input pdfHashSiblings[nLevels];
+   signal input pageHash;
+   signal input pageHashSiblings[nLevels];
+
+   signal input fieldHash;
+   signal input fieldHashSiblings[nLevels];
+
+   signal input structuredDataHash;
+   signal input structuredDataHashSiblings[nLevels];
 
    signal input totalPages;
    signal input totalPagesSiblings[nLevels];
@@ -54,66 +57,56 @@ template DocumentId () {
 
    component titleVerifier = DocumentIdPart(nLevels);
    titleVerifier.root <== id;
-   titleVerifier.key <== 0;
+   titleVerifier.key <== 2139904204642469210661998095148174100843820818705209080323729726810569655635;
    titleVerifier.value <== title;
-   for(var i = 0; i < nLevels; i++) {
-      titleVerifier.siblings[i] <== titleSiblings[i];
-   }
+   titleVerifier.siblings <== titleSiblings;
 
    component typeVerifier = DocumentIdPart(nLevels);
    typeVerifier.root <== id;
-   typeVerifier.key <== 1;
+   typeVerifier.key <== 3959633539973019126498781258361104579367385070006155617600996441045084049154;
    typeVerifier.value <== type;
-   for(var i = 0; i < nLevels; i++) {
-      typeVerifier.siblings[i] <== typeSiblings[i];
-   }
-
-   component structuredDataVerifier = DocumentIdPart(nLevels);
-   structuredDataVerifier.root <== id;
-   structuredDataVerifier.key <== 2;
-   structuredDataVerifier.value <== structuredData;
-   for(var i = 0; i < nLevels; i++) {
-      structuredDataVerifier.siblings[i] <== structuredDataSiblings[i];
-   }
+   typeVerifier.siblings <== typeSiblings;
 
    component pdfCIDVerifier = DocumentIdPart(nLevels);
    pdfCIDVerifier.root <== id;
-   pdfCIDVerifier.key <== 3;
+   pdfCIDVerifier.key <== 5405063920681412616650502938557453135706262473582367235597357920932717244724;
    pdfCIDVerifier.value <== pdfCID;
-   for(var i = 0; i < nLevels; i++) {
-      pdfCIDVerifier.siblings[i] <== pdfCIDSiblings[i];
-   }
+   pdfCIDVerifier.siblings <== pdfCIDSiblings;
 
    component encryptedPDFCIDVerifier = DocumentIdPart(nLevels);
    encryptedPDFCIDVerifier.root <== id;
-   encryptedPDFCIDVerifier.key <== 4;
+   encryptedPDFCIDVerifier.key <== 768989198230154210526670777771816572434878781889809242291049576497746439882;
    encryptedPDFCIDVerifier.value <== encryptedPDFCID;
-   for(var i = 0; i < nLevels; i++) {
-      encryptedPDFCIDVerifier.siblings[i] <== encryptedPDFCIDSiblings[i];
-   }
+   encryptedPDFCIDVerifier.siblings <== encryptedPDFCIDSiblings;
 
-   component pdfHashVerifier = DocumentIdPart(nLevels);
-   pdfHashVerifier.root <== id;
-   pdfHashVerifier.key <== 5;
-   pdfHashVerifier.value <== pdfHash;
-   for(var i = 0; i < nLevels; i++) {
-      pdfHashVerifier.siblings[i] <== pdfHashSiblings[i];
-   }
+   component pageHashVerifier = DocumentIdPart(nLevels);
+   pageHashVerifier.root <== id;
+   pageHashVerifier.key <== 19286320604300090977313927851360922220698906380410397735753243249770147293983;
+   pageHashVerifier.value <== pageHash;
+   pageHashVerifier.siblings <== pageHashSiblings;
+
+   component fieldHashVerifier = DocumentIdPart(nLevels);
+   fieldHashVerifier.root <== id;
+   fieldHashVerifier.key <== 12386702604060260896749083610313082265367023767283897698799640581128255585080;
+   fieldHashVerifier.value <== fieldHash;
+   fieldHashVerifier.siblings <== fieldHashSiblings;
 
    component totalPagesVerifier = DocumentIdPart(nLevels);
    totalPagesVerifier.root <== id;
-   totalPagesVerifier.key <== 6;
+   totalPagesVerifier.key <== 11443823930004980164024780974930552062331959489578084721092038418514135822929;
    totalPagesVerifier.value <== totalPages;
-   for(var i = 0; i < nLevels; i++) {
-      totalPagesVerifier.siblings[i] <== totalPagesSiblings[i];
-   }
+   totalPagesVerifier.siblings <== totalPagesSiblings;
+
+   component structuredDataHashVerifier = DocumentIdPart(nLevels);
+   structuredDataHashVerifier.root <== id;
+   structuredDataHashVerifier.key <== 17273568901141502150318856877583604888316741110871333618239496113149740467454;
+   structuredDataHashVerifier.value <== structuredDataHash;
+   structuredDataHashVerifier.siblings <== structuredDataHashSiblings;
 
    component encryptionKeyVerifier = DocumentIdPart(nLevels);
    encryptionKeyVerifier.root <== id;
-   encryptionKeyVerifier.key <== 7;
+   encryptionKeyVerifier.key <== 16082508876301636356587620761196943034312226372471142891421981429650484672417;
    encryptionKeyVerifier.value <== encryptionKey;
-   for(var i = 0; i < nLevels; i++) {
-      encryptionKeyVerifier.siblings[i] <== encryptionKeySiblings[i];
-   }
+   encryptionKeyVerifier.siblings <== encryptionKeySiblings;
 }
 

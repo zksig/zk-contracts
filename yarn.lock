@@ -364,10 +364,18 @@
     fastfile "0.0.20"
     ffjavascript "^0.2.48"
 
-"@iden3/js-crypto@0.0.3", "@iden3/js-crypto@^0.0.3":
+"@iden3/js-crypto@0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@iden3/js-crypto/-/js-crypto-0.0.3.tgz#530624e99a61db2cab2c733b5642dd751607f3ea"
   integrity sha512-fHO8edwKmAr8dnWlbIZhmQ5KEgViXGvmLyA/G++4LjOOoGa46sVBG0hWDYaBdlRCd68yXsemrKyyJUXrXP+/jw==
+  dependencies:
+    blake-hash "^2.0.0"
+    ffjavascript "^0.2.57"
+
+"@iden3/js-crypto@^1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@iden3/js-crypto/-/js-crypto-1.0.0-beta.1.tgz#1fa5159810c27e36996c1e19ba3a10e1d33d2750"
+  integrity sha512-axRGUuHJsLrPksjPZY+5ZFncWPUyo8Inhqh+gNLkxEbMKp0wo7TK4p0KNv9mDKqtNMP3A/MpeqDX/FbFTWfkPw==
   dependencies:
     blake-hash "^2.0.0"
     ffjavascript "^0.2.57"
