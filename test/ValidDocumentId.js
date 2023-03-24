@@ -1,5 +1,3 @@
-const { readFile } = require("fs/promises");
-const { wasm } = require("circom_tester");
 const {
   ZKDocument,
   DocumentType,
@@ -8,6 +6,8 @@ const {
   StructuredDataType,
   PoseidonHasher,
 } = require("@zksig/sdk");
+const { readFile } = require("fs/promises");
+const { wasm } = require("circom_tester");
 
 describe("ValidDocumentId circuit", () => {
   let circuit;

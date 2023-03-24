@@ -4,28 +4,31 @@ include "./templates/DocumentId.circom";
 include "../node_modules/circomlib/circuits/smt/smtverifier.circom";
 
 template ValidAgreementPage (nLevels) {
-   signal input pdfHash;
-   signal input pdfHashSiblings[5];
    signal input documentId;
+
    signal input pageHash;
-   signal input siblings[nLevels];
+   signal input pageHashSiblings[20];
+
+   signal input pageNumber;
+   signal input page;
+   signal input pageSiblings[nLevels];
 
    component pdfInDocument = DocumentIdPart(20);
    pdfInDocument.documentId <== documentId;
-   pdfInDocument.key <== 5;
-   pdfInDocument.value <== pdfHash;
-   pdfInDocument.siblings <== pdfHashSiblings;
+   pdfInDocument.key <== 19286320604300090977313927851360922220698906380410397735753243249770147293983;
+   pdfInDocument.value <== pageHash;
+   pdfInDocument.siblings <== pageHashSiblings;
 
    component smt = SMTVerifier(nLevels);
    smt.enabled <== 1;
    smt.fnc <== 0;
-   smt.root <== pdfHash;
+   smt.root <== pageHash;
    smt.oldKey <== 0;
    smt.oldValue <== 0;
    smt.isOld0 <== 0;
-   smt.key <== pageHash;
-   smt.value <== 0;
-   smt.siblings <== siblings;
+   smt.key <== pageNumber;
+   smt.value <== page;
+   smt.siblings <== pageSiblings;
 }
 
-component main  {public [documentId, pageHash]} = ValidAgreementPage(20);
+component main  {public [documentId, page]} = ValidAgreementPage(20);

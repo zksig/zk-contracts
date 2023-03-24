@@ -4,68 +4,34 @@ include "./templates/DocumentId.circom";
 include "../node_modules/circomlib/circuits/smt/smtverifier.circom";
 
 template ValidStructuredDataItem() {
-   var nLevels = 9;
-   var documentIdLevels = 20;
+  var nLevels = 20;
+  var documentIdLevels = 20;
 
-   signal input id;
+  signal input documentId;
 
-   signal input title;
-   signal input titleSiblings[documentIdLevels];
+  signal input structuredDataHash;
+  signal input structuredDataHashSiblings[documentIdLevels];
 
-   signal input type;
-   signal input typeSiblings[documentIdLevels];
+  signal input fieldName;
+  signal input fieldValue;
+  signal input fieldSiblings[nLevels];
 
-   signal input structuredData;
-   signal input structuredDataSiblings[documentIdLevels];
+  component validStructuredData = DocumentIdPart(documentIdLevels);
+  validStructuredData.documentId <== documentId;
+  validStructuredData.key <== 17273568901141502150318856877583604888316741110871333618239496113149740467454;
+  validStructuredData.value <== structuredDataHash;
+  validStructuredData.siblings <== structuredDataHashSiblings;
 
-   signal input pdfCID;
-   signal input pdfCIDSiblings[documentIdLevels];
-
-   signal input encryptedPDFCID;
-   signal input encryptedPDFCIDSiblings[documentIdLevels];
-
-   signal input pdfHash;
-   signal input pdfHashSiblings[documentIdLevels];
-
-   signal input totalPages;
-   signal input totalPagesSiblings[documentIdLevels];
-
-   signal input encryptionKey;
-   signal input encryptionKeySiblings[documentIdLevels];
-
-   signal input key;
-   signal input itemHash;
-   signal input siblings[nLevels];
-
-   component documentId = DocumentId();
-   documentId.id <== id;
-   documentId.title <== title;
-   documentId.titleSiblings <== titleSiblings;
-   documentId.type <== type;
-   documentId.typeSiblings <== typeSiblings;
-   documentId.structuredData <== structuredData;
-   documentId.structuredDataSiblings <== structuredDataSiblings;
-   documentId.pdfCID <== pdfCID;
-   documentId.pdfCIDSiblings <== pdfCIDSiblings;
-   documentId.encryptedPDFCID <== encryptedPDFCID;
-   documentId.encryptedPDFCIDSiblings <== encryptedPDFCIDSiblings;
-   documentId.pdfHash <== pdfHash;
-   documentId.pdfHashSiblings <== pdfHashSiblings;
-   documentId.totalPages <== totalPages;
-   documentId.totalPagesSiblings <== totalPagesSiblings;
-   documentId.encryptionKey <== encryptionKey;
-   documentId.encryptionKeySiblings <== encryptionKeySiblings;
-
-   component smt = SMTVerifier(nLevels);
-   smt.enabled <== 1;
-   smt.root <== structuredData;
-   smt.oldKey <== 0;
-   smt.oldValue <== 0;
-   smt.isOld0 <== 0;
-   smt.key <== key;
-   smt.value <== itemHash;
-   smt.fnc <== 0;
-   smt.siblings <== siblings;
+  component smt = SMTVerifier(nLevels);
+  smt.enabled <== 1;
+  smt.root <== structuredDataHash;
+  smt.oldKey <== 0;
+  smt.oldValue <== 0;
+  smt.isOld0 <== 0;
+  smt.key <== fieldName;
+  smt.value <== fieldValue;
+  smt.fnc <== 0;
+  smt.siblings <== fieldSiblings;
 }
 
-component main  {public [id, itemHash]} = ValidStructuredDataItem();
+component main  {public [documentId, fieldName, fieldValue]} = ValidStructuredDataItem();
