@@ -10,8 +10,8 @@ template ValidAgreementPage (nLevels) {
    signal input pageHash;
    signal input siblings[nLevels];
 
-   component pdfInDocument = DocumentIdPart(5);
-   pdfInDocument.root <== documentId;
+   component pdfInDocument = DocumentIdPart(20);
+   pdfInDocument.documentId <== documentId;
    pdfInDocument.key <== 5;
    pdfInDocument.value <== pdfHash;
    pdfInDocument.siblings <== pdfHashSiblings;

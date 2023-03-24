@@ -5,7 +5,7 @@ include "../node_modules/circomlib/circuits/smt/smtverifier.circom";
 
 template ValidStructuredDataItem() {
    var nLevels = 9;
-   var documentIdLevels = 5;
+   var documentIdLevels = 20;
 
    signal input id;
 
