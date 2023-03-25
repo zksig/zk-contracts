@@ -4,7 +4,7 @@ include "./templates/VerifiedParticipantData.circom";
 include "./templates/DocumentId.circom";
 
 template ProofOfSignature() {
-  var nLevels = 5;
+  var nLevels = 20;
 
   signal input documentTitle;
   signal input documentTitleSiblings[nLevels];
@@ -15,12 +15,12 @@ template ProofOfSignature() {
 
   signal input documentId;
   signal input signerParticipantId;
-  signal input signerName;
+  signal input signature;
   signal input signerSubrole;
   signal input signedAt;
   signal input documentIdSiblings[nLevels];
   signal input signerRoleSiblings[nLevels];
-  signal input signerNameSiblings[nLevels];
+  signal input signatureSiblings[nLevels];
   signal input signerSubroleSiblings[nLevels];
   signal input signedAtSiblings[nLevels];
 

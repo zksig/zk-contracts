@@ -20,6 +20,9 @@ template VerifiedParticipant() {
   signal input subrole;
   signal input subroleSiblings[nLevels];
 
+  signal input uniqueIdentifier;
+  signal input uniqueIdentifierSiblings[nLevels];
+
   signal input verificationData;
   signal input verificationDataSiblings[nLevels];
 
@@ -45,6 +48,8 @@ template VerifiedParticipant() {
   participant.roleSiblings <== roleSiblings;
   participant.subrole <== subrole;
   participant.subroleSiblings <== subroleSiblings;
+  participant.uniqueIdentifier <== uniqueIdentifier;
+  participant.uniqueIdentifierSiblings <== uniqueIdentifierSiblings;
   participant.verificationData <== verificationData;
   participant.verificationDataSiblings <== verificationDataSiblings;
   participant.signature <== signature;

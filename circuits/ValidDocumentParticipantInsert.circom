@@ -20,6 +20,9 @@ template ValidDocumentParticipantInsert (nLevels) {
   signal input subrole;
   signal input subroleSiblings[documentNLevels];
 
+  signal input uniqueIdentifier;
+  signal input uniqueIdentifierSiblings[nLevels];
+
   signal input verificationData;
   signal input verificationDataSiblings[documentNLevels];
 
@@ -51,6 +54,8 @@ template ValidDocumentParticipantInsert (nLevels) {
   participantSig.roleSiblings <== roleSiblings;
   participantSig.subrole <== subrole;
   participantSig.subroleSiblings <== subroleSiblings;
+  participantSig.uniqueIdentifier <== uniqueIdentifier;
+  participantSig.uniqueIdentifierSiblings <== uniqueIdentifierSiblings;
   participantSig.verificationData <== verificationData;
   participantSig.verificationDataSiblings <== verificationDataSiblings;
   participantSig.signature <== signature;
