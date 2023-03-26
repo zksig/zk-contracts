@@ -4,33 +4,34 @@ include "./templates/VerifiedParticipant.circom";
 include "../node_modules/circomlib/circuits/smt/smtprocessor.circom";
 
 template ValidDocumentParticipantInsert (nLevels) {
-  var documentNLevels = 20;
-
   signal input participantId;
 
   signal input documentId;
-  signal input documentIdSiblings[documentNLevels];
+  signal input documentIdSiblings[nLevels];
 
   signal input initiator;
-  signal input initiatorSiblings[documentNLevels];
+  signal input initiatorSiblings[nLevels];
 
   signal input role;
-  signal input roleSiblings[documentNLevels];
+  signal input roleSiblings[nLevels];
 
   signal input subrole;
-  signal input subroleSiblings[documentNLevels];
+  signal input subroleSiblings[nLevels];
+
+  signal input name;
+  signal input nameSiblings[nLevels];
 
   signal input uniqueIdentifier;
   signal input uniqueIdentifierSiblings[nLevels];
 
   signal input verificationData;
-  signal input verificationDataSiblings[documentNLevels];
+  signal input verificationDataSiblings[nLevels];
 
   signal input signature;
-  signal input signatureSiblings[documentNLevels];
+  signal input signatureSiblings[nLevels];
 
   signal input signatureTimestamp;
-  signal input signatureTimestampSiblings[documentNLevels];
+  signal input signatureTimestampSiblings[nLevels];
 
   signal input Ax; // first 32 bytes of public key
   signal input Ay; // second 32 bytes of public key
@@ -54,6 +55,8 @@ template ValidDocumentParticipantInsert (nLevels) {
   participantSig.roleSiblings <== roleSiblings;
   participantSig.subrole <== subrole;
   participantSig.subroleSiblings <== subroleSiblings;
+  participantSig.name <== name;
+  participantSig.nameSiblings <== nameSiblings;
   participantSig.uniqueIdentifier <== uniqueIdentifier;
   participantSig.uniqueIdentifierSiblings <== uniqueIdentifierSiblings;
   participantSig.verificationData <== verificationData;

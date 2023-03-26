@@ -2,8 +2,8 @@ const {
   ZKParticipantLogs,
   ZKDocumentParticipant,
   ParticipantRole,
-  PrivateKeyIdentity,
   PoseidonHasher,
+  PrivateKeyIdentity,
 } = require("@zksig/sdk");
 const { wasm } = require("circom_tester");
 
@@ -14,24 +14,27 @@ describe("ValidVerifiedParticipantData circuit", () => {
   });
 
   it("passes if right uniqueIdentifier is in the participant", async () => {
-    const participant = new ZKDocumentParticipant({
+    const zkParticipant = new ZKDocumentParticipant({
       documentId: BigInt(12345),
       initiator: true,
       role: ParticipantRole.ORIGINATOR,
       subrole: "manager",
-      signature: Buffer.from("ryan"),
-      identity: new PrivateKeyIdentity({
-        privateKey: "PRIVATE_KEY",
-        uniqueIdentifier: "ryan",
-        verificationData: { signature: "hi", message: "hi", publicKey: "hi" },
-      }),
+      name: "Test Test",
+      uniqueIdentifier: "test@test.com",
+      signature: Buffer.from("test test"),
+      verificationData: {},
       hasher: new PoseidonHasher(),
     });
 
-    const details = await participant.getDetails();
+    const details = await zkParticipant.getDetails();
 
     const logs = new ZKParticipantLogs([]);
-    const input = await logs.insert(participant);
+    const identity = new PrivateKeyIdentity({
+      privateKey: "PRIVATE_KEY",
+      uniqueIdentifier: "test@test.com",
+      verificationData: { signature: "hi", message: "hi", publicKey: "hi" },
+    });
+    const input = await logs.insert({ zkParticipant, identity });
 
     const witness = await circuit.calculateWitness({
       participantsRoot: input.newRoot,

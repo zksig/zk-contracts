@@ -39,6 +39,9 @@ template Participant() {
   signal input subrole;
   signal input subroleSiblings[nLevels];
 
+  signal input name;
+  signal input nameSiblings[nLevels];
+
   signal input uniqueIdentifier;
   signal input uniqueIdentifierSiblings[nLevels];
 
@@ -74,6 +77,12 @@ template Participant() {
   subroleVerifier.key <== 16299433002785143980785024108122603391010504946311676740598659110368739073883;
   subroleVerifier.value <== subrole;
   subroleVerifier.siblings <== subroleSiblings;
+
+  component nameVerifier = ParticipantPart(nLevels);
+  nameVerifier.participantId <== participantId;
+  nameVerifier.key <== 16570118920422897531023558127282308742513448349602829241232723598917494421360;
+  nameVerifier.value <== name;
+  nameVerifier.siblings <== nameSiblings;
 
   component uniqueIdentifierVerifier = ParticipantPart(nLevels);
   uniqueIdentifierVerifier.participantId <== participantId;

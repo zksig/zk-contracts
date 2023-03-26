@@ -31,8 +31,6 @@ describe("ValidDocumentIdPart circuit", () => {
       }),
       encryptionKey: Buffer.from("a".repeat(32)),
       hasher: new PoseidonHasher(),
-      validDocumentIdWASM: "",
-      validDocumentIdZKey: "",
     });
 
     const input = await zkDocument.getIdProofInput();

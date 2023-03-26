@@ -1,6 +1,5 @@
 const {
   ZKDocumentParticipant,
-  PrivateKeyIdentity,
   PoseidonHasher,
   ParticipantRole,
 } = require("@zksig/sdk");
@@ -18,16 +17,14 @@ describe("ValidParticipant circuit", () => {
       initiator: true,
       role: ParticipantRole.ORIGINATOR,
       subrole: "manager",
-      signature: Buffer.from("ryan"),
-      identity: new PrivateKeyIdentity({
-        privateKey: "PRIVATE_KEY",
-        uniqueIdentifier: "ryan",
-        verificationData: { signature: "hi", message: "hi", publicKey: "hi" },
-      }),
+      name: "Test Test",
+      uniqueIdentifier: "test@test.com",
+      signature: Buffer.from("test"),
+      verificationData: {},
       hasher: new PoseidonHasher(),
     });
 
-    const input = await participant.getProofInputs();
+    const input = await participant.getProofInput();
     const witness = await circuit.calculateWitness(input);
 
     // TODO fix circom_tester library so we can check output
