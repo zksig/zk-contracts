@@ -24,6 +24,9 @@ template ValidDocumentParticipantInsert (nLevels) {
   signal input uniqueIdentifier;
   signal input uniqueIdentifierSiblings[nLevels];
 
+  signal input structuredDataHash;
+  signal input structuredDataHashSiblings[nLevels];
+
   signal input verificationData;
   signal input verificationDataSiblings[nLevels];
 
@@ -59,6 +62,8 @@ template ValidDocumentParticipantInsert (nLevels) {
   participantSig.nameSiblings <== nameSiblings;
   participantSig.uniqueIdentifier <== uniqueIdentifier;
   participantSig.uniqueIdentifierSiblings <== uniqueIdentifierSiblings;
+  participantSig.structuredDataHash <== structuredDataHash;
+  participantSig.structuredDataHashSiblings <== structuredDataHashSiblings;
   participantSig.verificationData <== verificationData;
   participantSig.verificationDataSiblings <== verificationDataSiblings;
   participantSig.signature <== signature;

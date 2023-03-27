@@ -3,23 +3,23 @@ pragma circom 2.0.0;
 include "../../node_modules/circomlib/circuits/smt/smtverifier.circom";
 
 template ParticipantPart(nLevels) {
-   signal input participantId;
-   signal input key;
-   signal input value;
-   signal input siblings[nLevels];
+  signal input participantId;
+  signal input key;
+  signal input value;
+  signal input siblings[nLevels];
 
-   component smt = SMTVerifier(nLevels);
-   smt.enabled <== 1;
-   smt.root <== participantId;
-   smt.oldKey <== 0;
-   smt.oldValue <== 0;
-   smt.isOld0 <== 0;
-   smt.key <== key;
-   smt.value <== value;
-   smt.fnc <== 0;
-   for(var i = 0; i < nLevels; i++) {
-      smt.siblings[i] <== siblings[i];
-   }
+  component smt = SMTVerifier(nLevels);
+  smt.enabled <== 1;
+  smt.root <== participantId;
+  smt.oldKey <== 0;
+  smt.oldValue <== 0;
+  smt.isOld0 <== 0;
+  smt.key <== key;
+  smt.value <== value;
+  smt.fnc <== 0;
+  for(var i = 0; i < nLevels; i++) {
+    smt.siblings[i] <== siblings[i];
+  }
 }
 
 template Participant() {
@@ -44,6 +44,9 @@ template Participant() {
 
   signal input uniqueIdentifier;
   signal input uniqueIdentifierSiblings[nLevels];
+
+  signal input structuredDataHash;
+  signal input structuredDataHashSiblings[nLevels];
 
   signal input verificationData;
   signal input verificationDataSiblings[nLevels];
@@ -89,6 +92,12 @@ template Participant() {
   uniqueIdentifierVerifier.key <== 21465088586070471274951294489004552887188904420374198958621133391059441710623;
   uniqueIdentifierVerifier.value <== uniqueIdentifier;
   uniqueIdentifierVerifier.siblings <== uniqueIdentifierSiblings;
+
+  component structuredDataHashVerifier = ParticipantPart(nLevels);
+  structuredDataHashVerifier.participantId <== participantId;
+  structuredDataHashVerifier.key <== 17273568901141502150318856877583604888316741110871333618239496113149740467454;
+  structuredDataHashVerifier.value <== structuredDataHash;
+  structuredDataHashVerifier.siblings <== structuredDataHashSiblings;
 
   component verificationDataVerifier = ParticipantPart(nLevels);
   verificationDataVerifier.participantId <== participantId;

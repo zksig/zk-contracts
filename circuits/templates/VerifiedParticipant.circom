@@ -26,6 +26,9 @@ template VerifiedParticipant() {
   signal input uniqueIdentifier;
   signal input uniqueIdentifierSiblings[nLevels];
 
+  signal input structuredDataHash;
+  signal input structuredDataHashSiblings[nLevels];
+
   signal input verificationData;
   signal input verificationDataSiblings[nLevels];
 
@@ -55,6 +58,8 @@ template VerifiedParticipant() {
   participant.nameSiblings <== nameSiblings;
   participant.uniqueIdentifier <== uniqueIdentifier;
   participant.uniqueIdentifierSiblings <== uniqueIdentifierSiblings;
+  participant.structuredDataHash <== structuredDataHash;
+  participant.structuredDataHashSiblings <== structuredDataHashSiblings;
   participant.verificationData <== verificationData;
   participant.verificationDataSiblings <== verificationDataSiblings;
   participant.signature <== signature;

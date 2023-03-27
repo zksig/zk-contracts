@@ -2,6 +2,7 @@ const {
   ZKDocumentParticipant,
   PoseidonHasher,
   ParticipantRole,
+  ZKStructuredData,
 } = require("@zksig/sdk");
 const { wasm } = require("circom_tester");
 
@@ -19,6 +20,7 @@ describe("ValidParticipant circuit", () => {
       subrole: "manager",
       name: "Test Test",
       uniqueIdentifier: "test@test.com",
+      structuredData: new ZKStructuredData({ structuredData: [] }),
       signature: Buffer.from("test"),
       verificationData: {},
       hasher: new PoseidonHasher(),
