@@ -46,27 +46,27 @@ describe("ZKDocument", () => {
     return expect(
       contract.createDocument({
         documentId:
-          "2681517947090539074238088567394099335031577043496352195096235932925559489572",
+          "15978125441550700312164022882867441640724111640108789291320310102438724058360",
         expectedParticipantCount: 1,
         encryptedDetailsCID: "12345",
         proof: {
           a: [
-            "0x06171930ecd55c9200d7cea66030abd9d3b7d18306e3e2f6a84bd8ca05dedc3a",
-            "0x032a8dd0867dfbfd7d017fc23d2719a6067376863b95e6bba251d98e22689dfe",
+            "0x2de5659e40aa617dacf12b33fdf3b37011f0b3e1a62ce627c051d17656e2c9ff",
+            "0x0c0a46e17119d946036fdbd445f142c4f0612ebb0252ba244d2c26cfd4bbadc2",
           ],
           b: [
             [
-              "0x1f117f5ec120d4aec5626a0da7c8343654cd68f3cc6a8a979c070f4f07d94b69",
-              "0x23ca275af848c5b94e7931d86654dc9bda586223d0918b631ac430dd6c82a2ab",
+              "0x0fe32424024a6a1d8c38986d8a2a6f0f2fade7f88b09ba435c98a0d3e6b4f54f",
+              "0x10255ed388938b1d08685e8a9fcf1294ccc27fb9f431bafa0af3caa5a057ffed",
             ],
             [
-              "0x270d6168d08d5b3ec746ba052d63a6db15ea6f3888021a05220c448254a9c669",
-              "0x0669c6b5e20020508bd7f52ae39833e4966de97084c96d3a774874d67e4d2359",
+              "0x1cb6326138aa5b734431f7ba576752b898d0ae1fb250ab64e204f2d6e8369f07",
+              "0x11f024a96c0c0a83e9f66271e9294ba3b58fcb75e49dec1775bcd0186adc508d",
             ],
           ],
           c: [
-            "0x0f59f5886d5ebe92ce73ed8ede6f55ee99a40b9c003a69e78313ecd757f5a1a9",
-            "0x266e29a0fdac26e14ed4be6d09a26b8b73a2547f3dfb173002f805c7acd7ddd0",
+            "0x2dd922f9ac503798e6b2368399163a8cb61c19c1ae1249242a3c26ca50b74523",
+            "0x192570be2823a29e6a1f7a93de868cfdcf8ddb09ccffb3550e1cb166ae1941ba",
           ],
         },
       })
@@ -77,27 +77,27 @@ describe("ZKDocument", () => {
     return expect(
       contract.createDocument({
         documentId:
-          "2681517947090539074238088567394099335031577043496352195096235932925559489572",
+          "15978125441550700312164022882867441640724111640108789291320310102438724058360",
         expectedParticipantCount: 1,
         encryptedDetailsCID: "12345",
         proof: {
           a: [
-            "0x06171930ecd55c9200d7cea66030abd9d3b7d18306e3e2f6a84bd8ca05dedc3a",
-            "0x032a8dd0867dfbfd7d017fc23d2719a6067376863b95e6bba251d98e22689dfe",
+            "0x1b424f8d563950337fb376916f8ed9c29a27f019f57d0b6d59d2dcaf5ff9c9f5",
+            "0x100edbf3296552abb9705ac5680de1dfd14cf8699ef4a111499a372842cb8898",
           ],
           b: [
             [
-              "0x1f117f5ec120d4aec5626a0da7c8343654cd68f3cc6a8a979c070f4f07d94b69",
-              "0x23ca275af848c5b94e7931d86654dc9bda586223d0918b631ac430dd6c82a2ab",
+              "0x03e29a562f24ea7cb235957b768918f3afc0c19f4d28b39613306d2b799e9e1e",
+              "0x217262297601801b2be04034e4ce2eb93e7993c9132e0be6fbc2577d72fedec4",
             ],
             [
-              "0x270d6168d08d5b3ec746ba052d63a6db15ea6f3888021a05220c448254a9c669",
-              "0x0669c6b5e20020508bd7f52ae39833e4966de97084c96d3a774874d67e4d2359",
+              "0x00e11af8cddf7588b75dcdf34b26632c93814dec6a9006753aa4449c531d57f2",
+              "0x1d75855056ed3298724d7fc0f932b5743fd7274c1b9ace2c8c37c5b3e75905b5",
             ],
           ],
           c: [
-            "0x0f59f5886d5ebe92ce73ed8ede6f55ee99a40b9c003a69e78313ecd757f5a1a9",
-            "0x266e29a0fdac26e14ed4be6d09a26b8b73a2547f3dfb173002f805c7acd7ddd0",
+            "0x1a89af6d7c313a7e7a0aadc8817a2ce2180fddc3f5cea2ba2003fa451e2427e0",
+            "0x0fb3e1b9c5111784d6445cb564e53d4277d150446d43a6149defa7f704df2e08",
           ],
         },
       })
@@ -108,27 +108,27 @@ describe("ZKDocument", () => {
     return expect(
       contract.createDocument({
         documentId:
-          "23296823064297203651311056672206079584922270552303383073992426914088382500006",
+          "25978125441550700312164022882867441640724111640108789291320310102438724058360",
         expectedParticipantCount: 1,
         encryptedDetailsCID: "12345",
         proof: {
           a: [
-            "0x286fc2fe1f607bd74a01727837d43bc5718d846d43afdc332a0bb9a37d6287ae",
-            "0x24ba305e5e1c8f04f3a4c8dd46b625b24c3e8ecb8c97f51cdacab50150984dee",
+            "0x2de5659e40aa617dacf12b33fdf3b37011f0b3e1a62ce627c051d17656e2c9ff",
+            "0x0c0a46e17119d946036fdbd445f142c4f0612ebb0252ba244d2c26cfd4bbadc2",
           ],
           b: [
             [
-              "0x04726a41c4a57353045e214c79d2baf74b982452d14c9580ea05c4890c864a78",
-              "0x0fc9d4109c20b8cf65f6c9fbdba343a1ab3c06d5a0f71faafe7b52dfaef951b3",
+              "0x0fe32424024a6a1d8c38986d8a2a6f0f2fade7f88b09ba435c98a0d3e6b4f54f",
+              "0x10255ed388938b1d08685e8a9fcf1294ccc27fb9f431bafa0af3caa5a057ffed",
             ],
             [
-              "0x1c8f4edeade225be33907d170fc54178d3830e4938e36a7d27bbff2c3e2d7e85",
-              "0x2779541671a8dbb9d9af03d71032280918237320ff2960f939eb15c1a6ef53e3",
+              "0x1cb6326138aa5b734431f7ba576752b898d0ae1fb250ab64e204f2d6e8369f07",
+              "0x11f024a96c0c0a83e9f66271e9294ba3b58fcb75e49dec1775bcd0186adc508d",
             ],
           ],
           c: [
-            "0x0ffe66ffefa8d56ea4647b9e0cacb9a850523fd5ff2fd22cebf4d58c4d8e47b1",
-            "0x2963e8f222315d3724220dd080cd1d0bb705b299e5e034be4e898e85f910f5c7",
+            "0x2dd922f9ac503798e6b2368399163a8cb61c19c1ae1249242a3c26ca50b74523",
+            "0x192570be2823a29e6a1f7a93de868cfdcf8ddb09ccffb3550e1cb166ae1941ba",
           ],
         },
       })
@@ -139,29 +139,30 @@ describe("ZKDocument", () => {
     return expect(
       contract.addDocumentParticipant({
         documentId:
-          "2681517947090539074238088567394099335031577043496352195096235932925559489572",
-        verifiedParticipant: "1234",
+          "15978125441550700312164022882867441640724111640108789291320310102438724058360",
+        verifiedParticipant:
+          "2238441208122065331239591035976201736478563311718947195421259944076788384240",
         encryptedParticipantCID: "5678",
         nonce: "0",
-        root: "2627401503573136613021580641975031462477436432295791960562381559128938592086",
+        root: "20020478736176704528763471674210344244189298963256884275413681314235999212975",
         proof: {
           a: [
-            "0x22e6e502286017b3a750d5f61fa9d226022b4b100cc21ec8c35bc521df688391",
-            "0x2ee535b8ae58056b44796cb42471ff37cc8748448ec319e3801a1ffbbc0368c3",
+            "0x1b424f8d563950337fb376916f8ed9c29a27f019f57d0b6d59d2dcaf5ff9c9f5",
+            "0x100edbf3296552abb9705ac5680de1dfd14cf8699ef4a111499a372842cb8898",
           ],
           b: [
             [
-              "0x2d63f85150abaefe72ddd872247b37dc65b83d9b6b541c35a63f813d86f8fab6",
-              "0x04ebc8c0466b3b86f5cb614b3f721d820b9d478bc742aa01e20964340c6ec92c",
+              "0x03e29a562f24ea7cb235957b768918f3afc0c19f4d28b39613306d2b799e9e1e",
+              "0x217262297601801b2be04034e4ce2eb93e7993c9132e0be6fbc2577d72fedec4",
             ],
             [
-              "0x1e54402c58b9e5c9d2885096d617a090f9633cbaf1513bd2a6eb885cb7479866",
-              "0x08e23bb6a5b55ac63d0128b7da284c912085f5c87c8eedc897ba247ec9c48354",
+              "0x00e11af8cddf7588b75dcdf34b26632c93814dec6a9006753aa4449c531d57f2",
+              "0x1d75855056ed3298724d7fc0f932b5743fd7274c1b9ace2c8c37c5b3e75905b5",
             ],
           ],
           c: [
-            "0x2040c6733812d373f9d917a42e8654194b40d3b84d44f9a45c53a7f64f825319",
-            "0x05d432273200879019b7fd183a47a1e6d084571db5f45ed3b2faaffd622215d5",
+            "0x1a89af6d7c313a7e7a0aadc8817a2ce2180fddc3f5cea2ba2003fa451e2427e0",
+            "0x0fb3e1b9c5111784d6445cb564e53d4277d150446d43a6149defa7f704df2e08",
           ],
         },
       })
@@ -172,29 +173,30 @@ describe("ZKDocument", () => {
     return expect(
       contract.addDocumentParticipant({
         documentId:
-          "2681517947090539074238088567394099335031577043496352195096235932925559489572",
-        verifiedParticipant: "1234",
+          "15978125441550700312164022882867441640724111640108789291320310102438724058360",
+        verifiedParticipant:
+          "2238441208122065331239591035976201736478563311718947195421259944076788384240",
         encryptedParticipantCID: "5678",
         nonce: "0",
-        root: "2285937326252959461671809330765769524277251882929110868042172136442348719329",
+        root: "14871602250097672757846881588375769813559635928276823201219205700637906177588",
         proof: {
           a: [
-            "0x27a35f73192202abb1b920265c2d39c75f838a57b940c28fbc59c3e5d8de5828",
-            "0x14718ae8b48fffcd165a6de93a0294164397c6c2442cff1b4ea6cfa3c6a3a57d",
+            "0x1ec0222fc87ebcb435b39af098c175d35dad9ce60e01be12447bba23794da532",
+            "0x034be7d0bc7b938f7cf89d0aee503e6a2dda384adaaefcfb1ee938de2948a502",
           ],
           b: [
             [
-              "0x2a514f2c3aaed1acbf1c1f62b7ad8293a1136fbad8e66f5c8d87e098fe84838a",
-              "0x2e356b95ababaa6870d795e2f873718daa07bfc0f1d821dc43b3af7ee1c85347",
+              "0x1eb7c29cf801f810f1c34a2941d53bd10a216304e17307c04c91a5b94ee8ae7c",
+              "0x240d576a282ac69a85f6a23f2d2b167eaa80a10cad105f515a15b9d8b1d67e82",
             ],
             [
-              "0x29cb1fbae41c2c0a70d9c34e5990520e38c2cf6521143d4060a3c79edb6956cb",
-              "0x1a57744f9354d4cf21e8f18dae0e403b6eb8c11da98660eb931600f1abe19c05",
+              "0x19e1a5226d617d5b10c69ce8423f99d5c5255554c95dfec86c31a6c40308e066",
+              "0x2e584a7bb88b8d16e0ae7ac4444091b7d260322f872b76c9f866608d157c0e2e",
             ],
           ],
           c: [
-            "0x0d0e8f273726062cf2d8f32ea8ee834ea6d82ec521035b9cb9333359a1744abc",
-            "0x246258580fe57ac2fe8a3ef22438cfcb0057fb9938eaf3ed90cc646cd2aa58d9",
+            "0x23d7648ac25b3eef878dfeb22005279d632e304182e7663020f7c4c6eb4c014b",
+            "0x04802ee8b0ccea98c8d4ef463b5d815116f5a9470e3e32591df4d7180eaefd98",
           ],
         },
       })

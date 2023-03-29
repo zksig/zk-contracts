@@ -11,6 +11,7 @@ describe("ProofOfAgreement circuit", () => {
   it("passes if valid proof of signature is passed", async () => {
     const input = await getProofOfAgreementInputs({
       title: "My Title",
+      initiatorUniqueIdentifier: "test@test.com",
       type: DocumentType.AGREEMENT,
       pdf: await readFile("./fw9.pdf"),
       structuredData: [],

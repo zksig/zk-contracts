@@ -7,6 +7,8 @@
     "test": "hardhat test --network localhost --parallel"
   },
   "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@ethersproject/abi": "^5.4.7",
     "@ethersproject/providers": "^5.4.7",
     "@iden3/js-crypto": "^1.0.0-beta.1",
@@ -23,10 +25,12 @@
     "@types/chai": "^4.2.0",
     "@types/mocha": ">=9.1.0",
     "@types/node": ">=12.0.0",
+    "@zksig/sdk": "^0.0.13",
     "chai": "^4.2.0",
     "circom_tester": "^0.0.19",
     "circomlib": "^2.0.5",
     "circomlibjs": "^0.1.7",
+    "esbuild": "^0.17.14",
     "ethers": "^5.4.7",
     "hardhat": "^2.13.0",
     "hardhat-deploy": "^0.11.22",

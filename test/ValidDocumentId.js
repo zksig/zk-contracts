@@ -18,6 +18,7 @@ describe("ValidDocumentId circuit", () => {
   it("passes if valid id", async () => {
     const zkDocument = new ZKDocument({
       title: "My Title",
+      initiatorUniqueIdentifier: "test@test.com",
       type: DocumentType.AGREEMENT,
       pdf: new ZKDocumentPDF({
         pdf: await readFile("./fw9.pdf"),

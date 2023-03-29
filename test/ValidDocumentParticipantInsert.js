@@ -16,7 +16,9 @@ describe("ValidDocumentParticipantInsert circuit", () => {
 
   it("passes if valid signature insert", async () => {
     const zkParticipant = new ZKDocumentParticipant({
-      documentId: BigInt(12345),
+      documentId: BigInt(
+        "15978125441550700312164022882867441640724111640108789291320310102438724058360"
+      ),
       initiator: true,
       role: ParticipantRole.ORIGINATOR,
       subrole: "manager",
@@ -34,10 +36,9 @@ describe("ValidDocumentParticipantInsert circuit", () => {
       uniqueIdentifier: "test@test.com",
       verificationData: { signature: "hi", message: "hi", publicKey: "hi" },
     });
+
     const input = await logs.insert({ zkParticipant, identity });
-
     const witness = await circuit.calculateWitness(input);
-
     await circuit.checkConstraints(witness);
   });
 });

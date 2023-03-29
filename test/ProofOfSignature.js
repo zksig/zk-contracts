@@ -22,6 +22,7 @@ describe("ProofOfSignature circuit", () => {
   it("passes if valid proof of signature is passed", async () => {
     const zkDocument = new ZKDocument({
       title: "My Title",
+      initiatorUniqueIdentifier: "test@test.com",
       type: DocumentType.AGREEMENT,
       pdf: new ZKDocumentPDF({
         pdf: await readFile("./fw9.pdf"),
@@ -85,6 +86,7 @@ describe("ProofOfSignature circuit", () => {
     const input = await getProofOfSignatureInputs({
       document: {
         title: "My Title",
+        initiatorUniqueIdentifier: "test@test.com",
         type: DocumentType.AGREEMENT,
         pdf: await readFile("./fw9.pdf"),
         structuredData: [],
@@ -108,7 +110,7 @@ describe("ProofOfSignature circuit", () => {
       ],
       signer: {
         documentId,
-        auditTrailId: 2,
+        id: 2,
         initiator: false,
         role: ParticipantRole.SIGNER,
         subrole: "",
@@ -120,7 +122,7 @@ describe("ProofOfSignature circuit", () => {
       },
       originator: {
         documentId,
-        auditTrailId: 1,
+        id: 1,
         initiator: true,
         role: ParticipantRole.ORIGINATOR,
         subrole: "",

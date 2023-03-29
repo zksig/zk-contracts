@@ -3,16 +3,16 @@ const hre = require("hardhat");
 async function main() {
   const ZKDocument = await hre.ethers.getContractFactory("ZKDocument", {
     libraries: {
-      ValidDocumentId: "0xc76B836b2489E65BF7F7593E725D333b086E6341",
+      ValidDocumentId: "0x17660F2fF2D313726E876fe1EE4772d8b9F32F3b",
       ValidDocumentParticipantInsert:
-        "0xa295b447f30b3c947CAD05eB09aBDf7D3AdA905F",
+        "0xb8888Ae9480A459c6b9c5668AC3ED8B3D0D33959",
     },
   });
   const zkDocument = await ZKDocument.attach(
-    "0xDFE8Be6e3F5a08696106eD2133EE57Ee8164082e"
+    "0x6fA47cf77A94EB92E881D3068DE9C39e7Be15C59"
   );
 
-  // console.log(await (await zkDocument.setupTables()).wait());
+  console.log(await (await zkDocument.setupTables()).wait());
 
   console.log(await zkDocument.getDocumentsTableId());
   console.log(await zkDocument.getAuditLogTableId());
