@@ -5,7 +5,7 @@ include "../../node_modules/circomlib/circuits/eddsaposeidon.circom";
 include "../../node_modules/circomlib/circuits/smt/smtverifier.circom";
 
 template VerifiedParticipantData() {
-   var nLevels = 5;
+   var nLevels = 20;
 
    signal input participantsRoot;
    signal input participantSiblings[20];
@@ -22,7 +22,7 @@ template VerifiedParticipantData() {
    signal input R8y; // second 32 bytes of signature
 
    component participantPart = ParticipantPart(nLevels);
-   participantPart.root <== participantId;
+   participantPart.participantId <== participantId;
    participantPart.key <== key;
    participantPart.value <== value;
    participantPart.siblings <== siblings;

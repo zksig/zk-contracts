@@ -1,4 +1,12 @@
-const { newMemEmptyTrie } = require("circomlibjs");
+const {
+  ZKDocument,
+  DocumentType,
+  ZKDocumentPDF,
+  ZKStructuredData,
+  StructuredDataType,
+  PoseidonHasher,
+} = require("@zksig/sdk");
+const { readFile } = require("fs/promises");
 const { wasm } = require("circom_tester");
 
 describe("ValidDocumentPage circuit", () => {
@@ -8,30 +16,29 @@ describe("ValidDocumentPage circuit", () => {
   });
 
   it("passes if page is included", async () => {
-    const tree = await newMemEmptyTrie();
-    await tree.insert(2, 0);
-    await tree.insert(1, 0);
-    await tree.insert(3, 0);
-    await tree.insert(4, 0);
-    const siblingHashes = (await tree.find(3)).siblings.map((s) =>
-      tree.F.toObject(s)
-    );
-    while (siblingHashes.length < 20) siblingHashes.push(0);
-
-    const agreementTree = await newMemEmptyTrie();
-    await agreementTree.insert(5, agreementTree.F.toObject(tree.root));
-    const pdfHashSiblings = (await agreementTree.find(5)).siblings.map((s) =>
-      agreementTree.F.toObject(s)
-    );
-    while (pdfHashSiblings.length < 5) pdfHashSiblings.push(0);
-
-    const witness = await circuit.calculateWitness({
-      pdfHashSiblings,
-      pdfHash: tree.F.toObject(tree.root),
-      documentId: agreementTree.F.toObject(agreementTree.root),
-      siblings: siblingHashes,
-      pageHash: 3,
+    const zkDocument = new ZKDocument({
+      title: "My Title",
+      initiatorUniqueIdentifier: "test@test.com",
+      type: DocumentType.AGREEMENT,
+      pdf: new ZKDocumentPDF({
+        pdf: await readFile("./fw9.pdf"),
+        hasher: new PoseidonHasher(),
+      }),
+      structuredData: new ZKStructuredData({
+        structuredData: [
+          { name: "Field-1", type: StructuredDataType.TEXT, value: "hi" },
+        ],
+        hasher: new PoseidonHasher(),
+      }),
+      encryptionKey: Buffer.from("a".repeat(32)),
+      hasher: new PoseidonHasher(),
+      validDocumentIdWASM: "",
+      validDocumentIdZKey: "",
     });
+
+    const input = await zkDocument.getProofOfPageInput(1);
+
+    const witness = await circuit.calculateWitness(input);
 
     await circuit.checkConstraints(witness);
   });

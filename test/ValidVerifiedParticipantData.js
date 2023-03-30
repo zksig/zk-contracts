@@ -1,4 +1,11 @@
-const { newMemEmptyTrie, buildEddsa } = require("circomlibjs");
+const {
+  ZKParticipantLogs,
+  ZKDocumentParticipant,
+  ParticipantRole,
+  PoseidonHasher,
+  PrivateKeyIdentity,
+  ZKStructuredData,
+} = require("@zksig/sdk");
 const { wasm } = require("circom_tester");
 
 describe("ValidVerifiedParticipantData circuit", () => {
@@ -8,72 +15,45 @@ describe("ValidVerifiedParticipantData circuit", () => {
   });
 
   it("passes if right uniqueIdentifier is in the participant", async () => {
-    const eddsa = await buildEddsa();
+    const zkParticipant = new ZKDocumentParticipant({
+      documentId: BigInt(12345),
+      initiator: true,
+      role: ParticipantRole.ORIGINATOR,
+      subrole: "manager",
+      name: "Test Test",
+      uniqueIdentifier: "test@test.com",
+      structuredData: new ZKStructuredData({ structuredData: [] }),
+      signature: Buffer.from("test test"),
+      verificationData: {},
+      hasher: new PoseidonHasher(),
+    });
 
-    const input = {
-      documentId: "1234",
-      initiator: 1,
-      role: getKey("ORIGINATOR"),
-      subrole: 0,
-      name: getKey("Test Test"),
-      uniqueIdentifier: getKey("test@test.com"),
-      verificationIPAddress: getKey("55.55.55.55"),
-      verificationMethod: getKey("email"),
-      verificationTimestamp: "1234567890",
-    };
-    const participantTree = await newMemEmptyTrie();
-    for (const [i, value] of Object.values(input).entries()) {
-      await participantTree.insert(i, value);
-    }
+    const details = await zkParticipant.getDetails();
 
-    const privateKey = "PRIVATE_KEY";
-    const publicKey = eddsa.prv2pub(privateKey);
-    const sig = eddsa.signPoseidon(privateKey, participantTree.root);
-
-    const documentParticipantsTree = await newMemEmptyTrie();
-    await documentParticipantsTree.insert(sig.S, 0);
-    for (let i = 0; i < 30; i++) {
-      await documentParticipantsTree.insert(
-        `22406528692252135119456532763175948575940741210963338630389976236458137077${i
-          .toString()
-          .padStart(2, "0")}`,
-        0
-      );
-    }
+    const logs = new ZKParticipantLogs([]);
+    const identity = new PrivateKeyIdentity({
+      privateKey: "PRIVATE_KEY",
+      uniqueIdentifier: "test@test.com",
+      verificationData: { signature: "hi", message: "hi", publicKey: "hi" },
+    });
+    const input = await logs.insert({ zkParticipant, identity });
 
     const witness = await circuit.calculateWitness({
-      participantsRoot: documentParticipantsTree.F.toObject(
-        documentParticipantsTree.root
-      ),
-      participantSiblings: await getSiblings(
-        documentParticipantsTree,
-        sig.S,
-        20
-      ),
-      participantId: participantTree.F.toObject(participantTree.root),
-      key: 5,
-      value: getKey("test@test.com"),
-      siblings: await getSiblings(participantTree, 5),
-      Ax: eddsa.F.toObject(publicKey[0]),
-      Ay: eddsa.F.toObject(publicKey[1]),
-      S: sig.S,
-      R8x: eddsa.F.toObject(sig.R8[0]),
-      R8y: eddsa.F.toObject(sig.R8[1]),
+      participantsRoot: input.newRoot,
+      participantSiblings: input.siblings,
+      participantId: input.participantId,
+
+      key: details.role.key,
+      value: details.role.hashed,
+      siblings: input.roleSiblings,
+
+      Ax: input.Ax,
+      Ay: input.Ay,
+      S: input.S,
+      R8x: input.R8x,
+      R8y: input.R8y,
     });
 
     await circuit.checkConstraints(witness);
   });
 });
-
-function getKey(key) {
-  return `0x${Buffer.from(key).toString("hex")}`;
-}
-
-async function getSiblings(tree, key, total = 5) {
-  const siblings = (await tree.find(key)).siblings.map((s) =>
-    tree.F.toObject(s)
-  );
-  while (siblings.length < total) siblings.push(0);
-
-  return siblings;
-}
