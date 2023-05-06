@@ -72,7 +72,7 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
   }
 
   function setupTables() public onlyAdmin {
-    _documentsTableId = TablelandDeployments.get().createTable(
+    _documentsTableId = TablelandDeployments.get().create(
       address(this),
       SQLHelpers.toCreateFromSchema(
         "id text,"
@@ -92,7 +92,7 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
       )
     );
 
-    _auditLogTableId = TablelandDeployments.get().createTable(
+    _auditLogTableId = TablelandDeployments.get().create(
       address(this),
       SQLHelpers.toCreateFromSchema(
         "id integer primary key,"
@@ -133,7 +133,7 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
     doc.initialized = true;
 
     // store document data
-    TablelandDeployments.get().runSQL(
+    TablelandDeployments.get().mutate(
       address(this),
       _documentsTableId,
       SQLHelpers.toInsert(
@@ -164,7 +164,7 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
     require(valid, "Invalid participant insert");
 
     // store participant in audit log
-    TablelandDeployments.get().runSQL(
+    TablelandDeployments.get().mutate(
       address(this),
       _auditLogTableId,
       SQLHelpers.toInsert(
@@ -175,7 +175,7 @@ contract ZKDocument is ERC2771Context, ERC721Holder {
       )
     );
 
-    TablelandDeployments.get().runSQL(
+    TablelandDeployments.get().mutate(
       address(this),
       _documentsTableId,
       SQLHelpers.toUpdate(

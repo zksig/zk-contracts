@@ -2,9 +2,9 @@ const {
   ZKParticipantLogs,
   ZKDocumentParticipant,
   ParticipantRole,
-  PoseidonHasher,
   PrivateKeyIdentity,
   ZKStructuredData,
+  KeccakHasher,
 } = require("@zksig/sdk");
 const { wasm } = require("circom_tester");
 
@@ -17,7 +17,7 @@ describe("ValidDocumentParticipantInsert circuit", () => {
   it("passes if valid signature insert", async () => {
     const zkParticipant = new ZKDocumentParticipant({
       documentId: BigInt(
-        "15978125441550700312164022882867441640724111640108789291320310102438724058360"
+        "3582412050679495162987849962896474819009991887378400823408172248678867010753"
       ),
       initiator: true,
       role: ParticipantRole.ORIGINATOR,
@@ -27,7 +27,8 @@ describe("ValidDocumentParticipantInsert circuit", () => {
       structuredData: new ZKStructuredData({ structuredData: [] }),
       signature: Buffer.from("test"),
       verificationData: {},
-      hasher: new PoseidonHasher(),
+      hasher: new KeccakHasher(),
+      signatureTimestamp: 123456,
     });
 
     const logs = new ZKParticipantLogs([]);

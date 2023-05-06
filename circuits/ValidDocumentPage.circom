@@ -3,19 +3,19 @@ pragma circom 2.0.0;
 include "./templates/DocumentId.circom";
 include "../node_modules/circomlib/circuits/smt/smtverifier.circom";
 
-template ValidAgreementPage (nLevels) {
+template ValidDocumentPage (nLevels) {
    signal input documentId;
 
    signal input pageHash;
-   signal input pageHashSiblings[20];
+   signal input pageHashSiblings[4];
 
    signal input pageNumber;
    signal input page;
    signal input pageSiblings[nLevels];
 
-   component pdfInDocument = DocumentIdPart(20);
+   component pdfInDocument = DocumentIdPart(4);
    pdfInDocument.documentId <== documentId;
-   pdfInDocument.key <== 19286320604300090977313927851360922220698906380410397735753243249770147293983;
+   pdfInDocument.key <== 3;
    pdfInDocument.value <== pageHash;
    pdfInDocument.siblings <== pageHashSiblings;
 
@@ -31,4 +31,4 @@ template ValidAgreementPage (nLevels) {
    smt.siblings <== pageSiblings;
 }
 
-component main  {public [documentId, page]} = ValidAgreementPage(20);
+component main  {public [documentId, page]} = ValidDocumentPage(20);

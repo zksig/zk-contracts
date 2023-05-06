@@ -4,37 +4,39 @@ include "./templates/VerifiedParticipant.circom";
 include "../node_modules/circomlib/circuits/smt/smtprocessor.circom";
 
 template ValidDocumentParticipantInsert (nLevels) {
+  var participantLevels = 5;
+
   signal input participantId;
 
   signal input documentId;
-  signal input documentIdSiblings[nLevels];
+  signal input documentIdSiblings[participantLevels];
 
   signal input initiator;
-  signal input initiatorSiblings[nLevels];
+  signal input initiatorSiblings[participantLevels];
 
   signal input role;
-  signal input roleSiblings[nLevels];
+  signal input roleSiblings[participantLevels];
 
   signal input subrole;
-  signal input subroleSiblings[nLevels];
+  signal input subroleSiblings[participantLevels];
 
   signal input name;
-  signal input nameSiblings[nLevels];
+  signal input nameSiblings[participantLevels];
 
   signal input uniqueIdentifier;
-  signal input uniqueIdentifierSiblings[nLevels];
+  signal input uniqueIdentifierSiblings[participantLevels];
 
   signal input structuredDataHash;
-  signal input structuredDataHashSiblings[nLevels];
+  signal input structuredDataHashSiblings[participantLevels];
 
   signal input verificationData;
-  signal input verificationDataSiblings[nLevels];
+  signal input verificationDataSiblings[participantLevels];
 
   signal input signature;
-  signal input signatureSiblings[nLevels];
+  signal input signatureSiblings[participantLevels];
 
   signal input signatureTimestamp;
-  signal input signatureTimestampSiblings[nLevels];
+  signal input signatureTimestampSiblings[participantLevels];
 
   signal input Ax; // first 32 bytes of public key
   signal input Ay; // second 32 bytes of public key

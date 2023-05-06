@@ -3,7 +3,7 @@ pragma circom 2.0.0;
 include "./templates/DocumentId.circom";
 
 template ProofOfAgreement() {
-  var nLevels = 20;
+  var nLevels = 4;
 
   signal input documentId;
   signal input documentTitle;
@@ -16,21 +16,21 @@ template ProofOfAgreement() {
   // Check document title
   component validDocumentTitle = DocumentIdPart(nLevels);
   validDocumentTitle.documentId <== documentId;
-  validDocumentTitle.key <== 2139904204642469210661998095148174100843820818705209080323729726810569655635;
+  validDocumentTitle.key <== 0;
   validDocumentTitle.value <== documentTitle;
   validDocumentTitle.siblings <== documentTitleSiblings;
 
   // Check pdf hash
   component validPageHash = DocumentIdPart(nLevels);
   validPageHash.documentId <== documentId;
-  validPageHash.key <== 19286320604300090977313927851360922220698906380410397735753243249770147293983;
+  validPageHash.key <== 3;
   validPageHash.value <== pageHash;
   validPageHash.siblings <== pageHashSiblings;
 
   // Check structured data
   component validStructuredDataHash = DocumentIdPart(nLevels);
   validStructuredDataHash.documentId <== documentId;
-  validStructuredDataHash.key <== 17273568901141502150318856877583604888316741110871333618239496113149740467454;
+  validStructuredDataHash.key <== 5;
   validStructuredDataHash.value <== structuredDataHash;
   validStructuredDataHash.siblings <== structuredDataHashSiblings;
 }

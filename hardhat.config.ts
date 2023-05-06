@@ -26,10 +26,10 @@ const config: HardhatUserConfig = {
       mumbai: "0x9c66b91cff4855ddf693889335acbb0564ea19b8",
     },
     validDocumentId: {
-      mumbai: "0x17660F2fF2D313726E876fe1EE4772d8b9F32F3b",
+      mumbai: "0xb1c5129aAd91bDcBeA38Af4C5D341cFb75FDA35A",
     },
     validDocumentParticipantInsert: {
-      mumbai: "0xb8888Ae9480A459c6b9c5668AC3ED8B3D0D33959",
+      mumbai: "0x12f98c19986D2014353e30Ca7aa6B76A15b35441",
     },
   },
 };

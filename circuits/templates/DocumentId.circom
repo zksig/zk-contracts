@@ -24,7 +24,7 @@ template DocumentIdPart(nLevels) {
 }
 
 template DocumentId () {
-  var nLevels = 20;
+  var nLevels = 4;
 
   signal input documentId;
 
@@ -37,9 +37,6 @@ template DocumentId () {
   signal input pdfCID;
   signal input pdfCIDSiblings[nLevels];
 
-  signal input encryptedPDFCID;
-  signal input encryptedPDFCIDSiblings[nLevels];
-
   signal input pageHash;
   signal input pageHashSiblings[nLevels];
 
@@ -49,63 +46,48 @@ template DocumentId () {
   signal input structuredDataHash;
   signal input structuredDataHashSiblings[nLevels];
 
-  signal input totalPages;
-  signal input totalPagesSiblings[nLevels];
-
   signal input encryptionKey;
   signal input encryptionKeySiblings[nLevels];
 
   component titleVerifier = DocumentIdPart(nLevels);
   titleVerifier.documentId <== documentId;
-  titleVerifier.key <== 2139904204642469210661998095148174100843820818705209080323729726810569655635;
+  titleVerifier.key <== 0;
   titleVerifier.value <== title;
   titleVerifier.siblings <== titleSiblings;
 
   component typeVerifier = DocumentIdPart(nLevels);
   typeVerifier.documentId <== documentId;
-  typeVerifier.key <== 3959633539973019126498781258361104579367385070006155617600996441045084049154;
+  typeVerifier.key <== 1;
   typeVerifier.value <== type;
   typeVerifier.siblings <== typeSiblings;
 
   component pdfCIDVerifier = DocumentIdPart(nLevels);
   pdfCIDVerifier.documentId <== documentId;
-  pdfCIDVerifier.key <== 5405063920681412616650502938557453135706262473582367235597357920932717244724;
+  pdfCIDVerifier.key <== 2;
   pdfCIDVerifier.value <== pdfCID;
   pdfCIDVerifier.siblings <== pdfCIDSiblings;
 
-  component encryptedPDFCIDVerifier = DocumentIdPart(nLevels);
-  encryptedPDFCIDVerifier.documentId <== documentId;
-  encryptedPDFCIDVerifier.key <== 768989198230154210526670777771816572434878781889809242291049576497746439882;
-  encryptedPDFCIDVerifier.value <== encryptedPDFCID;
-  encryptedPDFCIDVerifier.siblings <== encryptedPDFCIDSiblings;
-
   component pageHashVerifier = DocumentIdPart(nLevels);
   pageHashVerifier.documentId <== documentId;
-  pageHashVerifier.key <== 19286320604300090977313927851360922220698906380410397735753243249770147293983;
+  pageHashVerifier.key <== 3;
   pageHashVerifier.value <== pageHash;
   pageHashVerifier.siblings <== pageHashSiblings;
 
   component fieldHashVerifier = DocumentIdPart(nLevels);
   fieldHashVerifier.documentId <== documentId;
-  fieldHashVerifier.key <== 12386702604060260896749083610313082265367023767283897698799640581128255585080;
+  fieldHashVerifier.key <== 4;
   fieldHashVerifier.value <== fieldHash;
   fieldHashVerifier.siblings <== fieldHashSiblings;
 
-  component totalPagesVerifier = DocumentIdPart(nLevels);
-  totalPagesVerifier.documentId <== documentId;
-  totalPagesVerifier.key <== 11443823930004980164024780974930552062331959489578084721092038418514135822929;
-  totalPagesVerifier.value <== totalPages;
-  totalPagesVerifier.siblings <== totalPagesSiblings;
-
   component structuredDataHashVerifier = DocumentIdPart(nLevels);
   structuredDataHashVerifier.documentId <== documentId;
-  structuredDataHashVerifier.key <== 17273568901141502150318856877583604888316741110871333618239496113149740467454;
+  structuredDataHashVerifier.key <== 5;
   structuredDataHashVerifier.value <== structuredDataHash;
   structuredDataHashVerifier.siblings <== structuredDataHashSiblings;
 
   component encryptionKeyVerifier = DocumentIdPart(nLevels);
   encryptionKeyVerifier.documentId <== documentId;
-  encryptionKeyVerifier.key <== 16082508876301636356587620761196943034312226372471142891421981429650484672417;
+  encryptionKeyVerifier.key <== 6;
   encryptionKeyVerifier.value <== encryptionKey;
   encryptionKeyVerifier.siblings <== encryptionKeySiblings;
 }

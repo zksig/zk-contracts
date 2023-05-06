@@ -23,7 +23,7 @@ template ParticipantPart(nLevels) {
 }
 
 template Participant() {
-  var nLevels = 20;
+  var nLevels = 5;
 
   signal input participantId;
 
@@ -59,61 +59,61 @@ template Participant() {
 
   component documentIdVerifier = ParticipantPart(nLevels);
   documentIdVerifier.participantId <== participantId;
-  documentIdVerifier.key <== 8431889515165275580762257512939684954742032291406494228537853067122239678810;
+  documentIdVerifier.key <== 0;
   documentIdVerifier.value <== documentId;
   documentIdVerifier.siblings <== documentIdSiblings;
 
   component initiatorVerifier = ParticipantPart(nLevels);
   initiatorVerifier.participantId <== participantId;
-  initiatorVerifier.key <== 3709885633830081566047994396455016445829673180898220600869737471859249001309;
+  initiatorVerifier.key <== 1;
   initiatorVerifier.value <== initiator;
   initiatorVerifier.siblings <== initiatorSiblings;
 
   component roleVerifier = ParticipantPart(nLevels);
   roleVerifier.participantId <== participantId;
-  roleVerifier.key <== 11269517948155635376213693597819113339197053678655097944624529865084209109078;
+  roleVerifier.key <== 2;
   roleVerifier.value <== role;
   roleVerifier.siblings <== roleSiblings;
 
   component subroleVerifier = ParticipantPart(nLevels);
   subroleVerifier.participantId <== participantId;
-  subroleVerifier.key <== 16299433002785143980785024108122603391010504946311676740598659110368739073883;
+  subroleVerifier.key <== 3;
   subroleVerifier.value <== subrole;
   subroleVerifier.siblings <== subroleSiblings;
 
   component nameVerifier = ParticipantPart(nLevels);
   nameVerifier.participantId <== participantId;
-  nameVerifier.key <== 16570118920422897531023558127282308742513448349602829241232723598917494421360;
+  nameVerifier.key <== 4;
   nameVerifier.value <== name;
   nameVerifier.siblings <== nameSiblings;
 
   component uniqueIdentifierVerifier = ParticipantPart(nLevels);
   uniqueIdentifierVerifier.participantId <== participantId;
-  uniqueIdentifierVerifier.key <== 21465088586070471274951294489004552887188904420374198958621133391059441710623;
+  uniqueIdentifierVerifier.key <== 5;
   uniqueIdentifierVerifier.value <== uniqueIdentifier;
   uniqueIdentifierVerifier.siblings <== uniqueIdentifierSiblings;
 
   component structuredDataHashVerifier = ParticipantPart(nLevels);
   structuredDataHashVerifier.participantId <== participantId;
-  structuredDataHashVerifier.key <== 17273568901141502150318856877583604888316741110871333618239496113149740467454;
+  structuredDataHashVerifier.key <== 6;
   structuredDataHashVerifier.value <== structuredDataHash;
   structuredDataHashVerifier.siblings <== structuredDataHashSiblings;
 
   component verificationDataVerifier = ParticipantPart(nLevels);
   verificationDataVerifier.participantId <== participantId;
-  verificationDataVerifier.key <== 21416308081959123630713624659288605919484559073851801332251071305287646772437;
+  verificationDataVerifier.key <== 7;
   verificationDataVerifier.value <== verificationData;
   verificationDataVerifier.siblings <== verificationDataSiblings;
 
   component signatureVerifier = ParticipantPart(nLevels);
   signatureVerifier.participantId <== participantId;
-  signatureVerifier.key <== 10253145063120662839141647369770603609160117995911816203872847534523035841457;
+  signatureVerifier.key <== 8;
   signatureVerifier.value <== signature;
   signatureVerifier.siblings <== signatureSiblings;
 
   component signatureTimestampVerifier = ParticipantPart(nLevels);
   signatureTimestampVerifier.participantId <== participantId;
-  signatureTimestampVerifier.key <== 21011016260274858177081918669366744293122895169804160264545088051997131465628;
+  signatureTimestampVerifier.key <== 9;
   signatureTimestampVerifier.value <== signatureTimestamp;
   signatureTimestampVerifier.siblings <== signatureTimestampSiblings;
 }

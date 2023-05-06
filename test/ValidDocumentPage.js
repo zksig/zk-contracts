@@ -4,7 +4,7 @@ const {
   ZKDocumentPDF,
   ZKStructuredData,
   StructuredDataType,
-  PoseidonHasher,
+  KeccakHasher,
 } = require("@zksig/sdk");
 const { readFile } = require("fs/promises");
 const { wasm } = require("circom_tester");
@@ -22,16 +22,16 @@ describe("ValidDocumentPage circuit", () => {
       type: DocumentType.AGREEMENT,
       pdf: new ZKDocumentPDF({
         pdf: await readFile("./fw9.pdf"),
-        hasher: new PoseidonHasher(),
+        hasher: new KeccakHasher(),
       }),
       structuredData: new ZKStructuredData({
         structuredData: [
           { name: "Field-1", type: StructuredDataType.TEXT, value: "hi" },
         ],
-        hasher: new PoseidonHasher(),
+        hasher: new KeccakHasher(),
       }),
       encryptionKey: Buffer.from("a".repeat(32)),
-      hasher: new PoseidonHasher(),
+      hasher: new KeccakHasher(),
       validDocumentIdWASM: "",
       validDocumentIdZKey: "",
     });

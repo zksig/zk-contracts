@@ -4,10 +4,11 @@ include "./templates/VerifiedParticipantData.circom";
 include "./templates/DocumentId.circom";
 
 template ProofOfSignature() {
-  var nLevels = 20;
+  var documentIdLevels = 4;
+  var participantIdLevels = 5;
 
   signal input documentTitle;
-  signal input documentTitleSiblings[nLevels];
+  signal input documentTitleSiblings[documentIdLevels];
 
   signal input participantsRoot;
   signal input signerSignedParticipantId;
@@ -20,17 +21,17 @@ template ProofOfSignature() {
   signal input signerSubrole;
   signal input signerName;
   signal input signedAt;
-  signal input documentIdSiblings[nLevels];
-  signal input signerRoleSiblings[nLevels];
-  signal input signerSubroleSiblings[nLevels];
-  signal input signerNameSiblings[nLevels];
-  signal input signedAtSiblings[nLevels];
+  signal input documentIdSiblings[participantIdLevels];
+  signal input signerRoleSiblings[participantIdLevels];
+  signal input signerSubroleSiblings[participantIdLevels];
+  signal input signerNameSiblings[participantIdLevels];
+  signal input signedAtSiblings[participantIdLevels];
 
   signal input originatorParticipantId;
   signal input originatorName;
   signal input originatorUniqueIdentifier;
-  signal input originatorNameSiblings[nLevels];
-  signal input originatorUniqueIdentifierSiblings[nLevels];
+  signal input originatorNameSiblings[participantIdLevels];
+  signal input originatorUniqueIdentifierSiblings[participantIdLevels];
 
   // Verify signature is part of audit trail
   component signerSMT = SMTVerifier(20);
@@ -58,58 +59,58 @@ template ProofOfSignature() {
 
 
   // Check document title
-  component validDocumentTitle = DocumentIdPart(nLevels);
+  component validDocumentTitle = DocumentIdPart(documentIdLevels);
   validDocumentTitle.documentId <== documentId;
-  validDocumentTitle.key <== 2139904204642469210661998095148174100843820818705209080323729726810569655635;
+  validDocumentTitle.key <== 0;
   validDocumentTitle.value <== documentTitle;
   validDocumentTitle.siblings <== documentTitleSiblings;
 
   // Check document ID
-  component validDocumentId = ParticipantPart(nLevels);
+  component validDocumentId = ParticipantPart(participantIdLevels);
   validDocumentId.participantId <== signerParticipantId;
-  validDocumentId.key <== 8431889515165275580762257512939684954742032291406494228537853067122239678810;
+  validDocumentId.key <== 0;
   validDocumentId.value <== documentId;
   validDocumentId.siblings <== documentIdSiblings;
 
   // Check they are a signer
-  component participantIsSigner = ParticipantPart(nLevels);
+  component participantIsSigner = ParticipantPart(participantIdLevels);
   participantIsSigner.participantId <== signerParticipantId;
-  participantIsSigner.key <== 11269517948155635376213693597819113339197053678655097944624529865084209109078;
+  participantIsSigner.key <== 2;
   participantIsSigner.value <== 3;
   participantIsSigner.siblings <== signerRoleSiblings;
 
   // Check the name of the signer
-  component validSignerName = ParticipantPart(nLevels);
+  component validSignerName = ParticipantPart(participantIdLevels);
   validSignerName.participantId <== signerParticipantId;
-  validSignerName.key <== 16570118920422897531023558127282308742513448349602829241232723598917494421360;
+  validSignerName.key <== 4;
   validSignerName.value <== signerName;
   validSignerName.siblings <== signerNameSiblings;
 
   // Check the subrole of the signer
-  component validSignerSubrole = ParticipantPart(nLevels);
+  component validSignerSubrole = ParticipantPart(participantIdLevels);
   validSignerSubrole.participantId <== signerParticipantId;
-  validSignerSubrole.key <== 16299433002785143980785024108122603391010504946311676740598659110368739073883;
+  validSignerSubrole.key <== 3;
   validSignerSubrole.value <== signerSubrole;
   validSignerSubrole.siblings <== signerSubroleSiblings;
 
   // Check the time of signature
-  component validSignedAtTime = ParticipantPart(nLevels);
+  component validSignedAtTime = ParticipantPart(participantIdLevels);
   validSignedAtTime.participantId <== signerParticipantId;
-  validSignedAtTime.key <== 21011016260274858177081918669366744293122895169804160264545088051997131465628;
+  validSignedAtTime.key <== 9;
   validSignedAtTime.value <== signedAt;
   validSignedAtTime.siblings <== signedAtSiblings;
 
   // Check originator name
-  component validOriginatorName = ParticipantPart(nLevels);
+  component validOriginatorName = ParticipantPart(participantIdLevels);
   validOriginatorName.participantId <== originatorParticipantId;
-  validOriginatorName.key <== 16570118920422897531023558127282308742513448349602829241232723598917494421360;
+  validOriginatorName.key <== 4;
   validOriginatorName.value <== originatorName;
   validOriginatorName.siblings <== originatorNameSiblings;
 
   // Check originator unique identifier
-  component validOriginatorUniqueIdentifier = ParticipantPart(nLevels);
+  component validOriginatorUniqueIdentifier = ParticipantPart(participantIdLevels);
   validOriginatorUniqueIdentifier.participantId <== originatorParticipantId;
-  validOriginatorUniqueIdentifier.key <== 21465088586070471274951294489004552887188904420374198958621133391059441710623;
+  validOriginatorUniqueIdentifier.key <== 5;
   validOriginatorUniqueIdentifier.value <== originatorUniqueIdentifier;
   validOriginatorUniqueIdentifier.siblings <== originatorUniqueIdentifierSiblings;
 }

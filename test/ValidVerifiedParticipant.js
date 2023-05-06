@@ -1,9 +1,9 @@
 const {
   ZKDocumentParticipant,
   ParticipantRole,
-  PoseidonHasher,
   PrivateKeyIdentity,
   ZKStructuredData,
+  KeccakHasher,
 } = require("@zksig/sdk");
 const { wasm } = require("circom_tester");
 
@@ -24,7 +24,8 @@ describe("ValidVerifiedParticipant circuit", () => {
       structuredData: new ZKStructuredData({ structuredData: [] }),
       signature: Buffer.from("test"),
       verificationData: {},
-      hasher: new PoseidonHasher(),
+      signatureTimestamp: 12345,
+      hasher: new KeccakHasher(),
     });
 
     const input = await participant.getProofInput();

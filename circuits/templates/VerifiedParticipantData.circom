@@ -5,7 +5,7 @@ include "../../node_modules/circomlib/circuits/eddsaposeidon.circom";
 include "../../node_modules/circomlib/circuits/smt/smtverifier.circom";
 
 template VerifiedParticipantData() {
-   var nLevels = 20;
+   var nLevels = 5;
 
    signal input participantsRoot;
    signal input participantSiblings[20];

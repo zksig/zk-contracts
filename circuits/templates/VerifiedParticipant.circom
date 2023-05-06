@@ -4,7 +4,7 @@ include "./Participant.circom";
 include "../../node_modules/circomlib/circuits/eddsaposeidon.circom";
 
 template VerifiedParticipant() {
-  var nLevels = 20;
+  var nLevels = 5;
 
   signal input participantId;
 

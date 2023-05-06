@@ -5,10 +5,10 @@ const {
   ParticipantRole,
   ZKDocument,
   ZKDocumentPDF,
-  PoseidonHasher,
   ZKStructuredData,
   ZKDocumentParticipant,
   PrivateKeyIdentity,
+  KeccakHasher,
 } = require("@zksig/sdk");
 const { wasm } = require("circom_tester");
 const { Eddsa } = require("@iden3/js-crypto");
@@ -26,14 +26,14 @@ describe("ProofOfSignature circuit", () => {
       type: DocumentType.AGREEMENT,
       pdf: new ZKDocumentPDF({
         pdf: await readFile("./fw9.pdf"),
-        hasher: new PoseidonHasher(),
+        hasher: new KeccakHasher(),
       }),
       structuredData: new ZKStructuredData({
         structuredData: [],
-        hasher: new PoseidonHasher(),
+        hasher: new KeccakHasher(),
       }),
       encryptionKey: Buffer.from("a".repeat(32)),
-      hasher: new PoseidonHasher(),
+      hasher: new KeccakHasher(),
       validDocumentIdWASM: "",
       validDocumentIdZKey: "",
     });
@@ -55,7 +55,8 @@ describe("ProofOfSignature circuit", () => {
       structuredData: new ZKStructuredData({ structuredData: [] }),
       signature: Buffer.from("test"),
       verificationData: await signerIdentity.getVerificationData(),
-      hasher: new PoseidonHasher(),
+      signatureTimestamp: 123456,
+      hasher: new KeccakHasher(),
     });
     const signerSignature = await signerIdentity.sign(
       (await signer.getRoot()).bigInt()
@@ -76,7 +77,8 @@ describe("ProofOfSignature circuit", () => {
       structuredData: new ZKStructuredData({ structuredData: [] }),
       signature: Buffer.from("test"),
       verificationData: await originatorIdentity.getVerificationData(),
-      hasher: new PoseidonHasher(),
+      signatureTimestamp: 123456,
+      hasher: new KeccakHasher(),
     });
 
     const originatorSignature = await originatorIdentity.sign(
@@ -119,6 +121,7 @@ describe("ProofOfSignature circuit", () => {
         structuredData: [],
         signature: Buffer.from("test"),
         verificationData: {},
+        signatureTimestamp: 123456,
       },
       originator: {
         documentId,
@@ -131,8 +134,11 @@ describe("ProofOfSignature circuit", () => {
         structuredData: [],
         signature: Buffer.from("test"),
         verificationData: {},
+        signatureTimestamp: 123456,
       },
     });
+
+    console.log(JSON.stringify(input, null, 2));
 
     const witness = await circuit.calculateWitness(input);
     await circuit.checkConstraints(witness);

@@ -3,9 +3,8 @@ pragma circom 2.0.0;
 include "./templates/DocumentId.circom";
 include "../node_modules/circomlib/circuits/smt/smtverifier.circom";
 
-template ValidStructuredDataItem() {
-  var nLevels = 20;
-  var documentIdLevels = 20;
+template ValidStructuredDataItem(nLevels) {
+  var documentIdLevels = 4;
 
   signal input documentId;
 
@@ -18,7 +17,7 @@ template ValidStructuredDataItem() {
 
   component validStructuredData = DocumentIdPart(documentIdLevels);
   validStructuredData.documentId <== documentId;
-  validStructuredData.key <== 17273568901141502150318856877583604888316741110871333618239496113149740467454;
+  validStructuredData.key <== 5;
   validStructuredData.value <== structuredDataHash;
   validStructuredData.siblings <== structuredDataHashSiblings;
 
@@ -34,4 +33,4 @@ template ValidStructuredDataItem() {
   smt.siblings <== fieldSiblings;
 }
 
-component main  {public [documentId, fieldName, fieldValue]} = ValidStructuredDataItem();
+component main  {public [documentId, fieldName, fieldValue]} = ValidStructuredDataItem(20);
